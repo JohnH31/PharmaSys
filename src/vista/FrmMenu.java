@@ -51,7 +51,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuBar2.setBackground(new java.awt.Color(102, 102, 102));
+        jMenuBar2.setBackground(new java.awt.Color(255, 255, 255));
 
         jMenu4.setText("Usuarios");
         jMenu4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -245,7 +245,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu4;
+    public javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
