@@ -32,15 +32,18 @@ public class FrmMenu extends javax.swing.JFrame {
         jmiCrear = new javax.swing.JMenuItem();
         jmiEliminar = new javax.swing.JMenuItem();
         jmiRoles = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jmiClientesV = new javax.swing.JMenuItem();
-        jmiPedidosV = new javax.swing.JMenuItem();
-        jmiFacturacionV = new javax.swing.JMenuItem();
+        menuCliente = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jmiProveedoresC = new javax.swing.JMenuItem();
-        jmiCategoriasC = new javax.swing.JMenuItem();
-        jmiRequisicionC = new javax.swing.JMenuItem();
-        jmiCompraC = new javax.swing.JMenuItem();
+        menuProveedores = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuProductos = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        menuCompras = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        menuVentas = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        menuPedidos = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jmiVentasR = new javax.swing.JMenuItem();
         jmiComprasR = new javax.swing.JMenuItem();
@@ -77,51 +80,59 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu4);
 
+        menuCliente.setText("Clientes");
+
+        jMenuItem1.setText("MenuCliente");
+        menuCliente.add(jMenuItem1);
+
+        jMenuBar2.add(menuCliente);
+
+        jMenu6.setText("Proveedores");
+        jMenu6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        menuProveedores.setText("MenuProveedores");
+        menuProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuProveedoresActionPerformed(evt);
+            }
+        });
+        jMenu6.add(menuProveedores);
+
+        jMenuBar2.add(jMenu6);
+
+        jMenu2.setText("Productos");
+
+        menuProductos.setText("MenuProductos");
+        jMenu2.add(menuProductos);
+
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Compras");
+
+        menuCompras.setText("MenuCompras");
+        jMenu3.add(menuCompras);
+
+        jMenuBar2.add(jMenu3);
+
         jMenu5.setText("Ventas");
         jMenu5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jmiClientesV.setText("Clientes");
-        jmiClientesV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiClientesVActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jmiClientesV);
-
-        jmiPedidosV.setText("Pedidos");
-        jMenu5.add(jmiPedidosV);
-
-        jmiFacturacionV.setText("Facturacion");
-        jMenu5.add(jmiFacturacionV);
+        menuVentas.setText("MenuVentas");
+        jMenu5.add(menuVentas);
 
         jMenuBar2.add(jMenu5);
 
-        jMenu6.setText("Compras");
-        jMenu6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jMenu8.setText("Pedidos");
 
-        jmiProveedoresC.setText("Proveedores");
-        jmiProveedoresC.addActionListener(new java.awt.event.ActionListener() {
+        menuPedidos.setText("MenuPedidos");
+        menuPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiProveedoresCActionPerformed(evt);
+                menuPedidosActionPerformed(evt);
             }
         });
-        jMenu6.add(jmiProveedoresC);
+        jMenu8.add(menuPedidos);
 
-        jmiCategoriasC.setText("Categorias");
-        jmiCategoriasC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiCategoriasCActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jmiCategoriasC);
-
-        jmiRequisicionC.setText("Requisicion");
-        jMenu6.add(jmiRequisicionC);
-
-        jmiCompraC.setText("Compra");
-        jMenu6.add(jmiCompraC);
-
-        jMenuBar2.add(jMenu6);
+        jMenuBar2.add(jMenu8);
 
         jMenu7.setText("Reportes");
         jMenu7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -167,11 +178,11 @@ public class FrmMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 263, Short.MAX_VALUE)
         );
 
         pack();
@@ -185,17 +196,13 @@ public class FrmMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiRolesActionPerformed
 
-    private void jmiClientesVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesVActionPerformed
+    private void menuProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProveedoresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jmiClientesVActionPerformed
+    }//GEN-LAST:event_menuProveedoresActionPerformed
 
-    private void jmiProveedoresCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedoresCActionPerformed
+    private void menuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPedidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jmiProveedoresCActionPerformed
-
-    private void jmiCategoriasCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCategoriasCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiCategoriasCActionPerformed
+    }//GEN-LAST:event_menuPedidosActionPerformed
 
     private void jmiClientesRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesRActionPerformed
         // TODO add your handling code here:
@@ -245,26 +252,29 @@ public class FrmMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar2;
-    public javax.swing.JMenuItem jmiCategoriasC;
+    private javax.swing.JMenuItem jMenuItem1;
     public javax.swing.JMenuItem jmiClientesR;
-    public javax.swing.JMenuItem jmiClientesV;
-    public javax.swing.JMenuItem jmiCompraC;
     public javax.swing.JMenuItem jmiComprasR;
     public javax.swing.JMenuItem jmiCrear;
     public javax.swing.JMenuItem jmiEliminar;
-    public javax.swing.JMenuItem jmiFacturacionV;
     public javax.swing.JMenuItem jmiPedidosR;
-    public javax.swing.JMenuItem jmiPedidosV;
-    public javax.swing.JMenuItem jmiProveedoresC;
     public javax.swing.JMenuItem jmiProveedoresR;
-    public javax.swing.JMenuItem jmiRequisicionC;
     public javax.swing.JMenuItem jmiRiquisicionesR;
     public javax.swing.JMenuItem jmiRoles;
     public javax.swing.JMenuItem jmiVentasR;
+    public javax.swing.JMenu menuCliente;
+    public javax.swing.JMenuItem menuCompras;
+    public javax.swing.JMenuItem menuPedidos;
+    public javax.swing.JMenuItem menuProductos;
+    public javax.swing.JMenuItem menuProveedores;
+    public javax.swing.JMenuItem menuVentas;
     // End of variables declaration//GEN-END:variables
 }
