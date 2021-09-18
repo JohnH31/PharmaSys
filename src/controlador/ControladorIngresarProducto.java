@@ -12,7 +12,6 @@ import modelo.ProductoDAO;
 import modelo.ProductoVO;
 import vista.FrmMenu;
 import vista.FrmProductos;
-import vista.jifrmProductos;
 
 /**
  *

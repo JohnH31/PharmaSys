@@ -33,7 +33,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jmiEliminar = new javax.swing.JMenuItem();
         jmiRoles = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        MenusCliente = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         menuProveedores = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -82,8 +82,8 @@ public class FrmMenu extends javax.swing.JFrame {
 
         menuCliente.setText("Clientes");
 
-        jMenuItem1.setText("MenuCliente");
-        menuCliente.add(jMenuItem1);
+        MenusCliente.setText("MenuCliente");
+        menuCliente.add(MenusCliente);
 
         jMenuBar2.add(menuCliente);
 
@@ -252,6 +252,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem MenusCliente;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
@@ -260,7 +261,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
     public javax.swing.JMenuItem jmiClientesR;
     public javax.swing.JMenuItem jmiComprasR;
     public javax.swing.JMenuItem jmiCrear;

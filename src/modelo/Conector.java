@@ -21,7 +21,7 @@ public class Conector {
     private String servidor = "127.0.0.1";
     private String usuario = "root";
     private String password = "";
-    private String bd = "bd_app";
+    private String bd = "bd_pharmasys";
     private String cadena;
 
     //Declarar el objeto que me permita realizar una conexion
