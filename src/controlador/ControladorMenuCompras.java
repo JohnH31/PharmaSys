@@ -37,6 +37,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
         
         vista.jbtCompraG.addActionListener(this);
         vista.jbtnCompraD.addActionListener(this);
+        vista.jbtnCompraE.addActionListener(this);
         vista.tblCompras.addMouseListener(this);
         menu.menuCompras.addActionListener(this);
     }   
@@ -102,6 +103,35 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
             }
         }
     }
+    
+    private void modi() {
+        try {
+            cvo.getId_compra();
+            cvo.setFecha_compra(vista.txtFecha.getText());
+            cvo.setCantidad_producto(Integer.parseInt(vista.txtCantidad.getText()));
+            cvo.setPrecio_producto(Integer.parseInt(vista.txtPresioCom.getText()));
+            cvo.setFk_id_producto(Integer.parseInt(vista.cbxIdProducto.getSelectedItem().toString()));
+            cdao.actualizar(cvo);
+            vista.txtFecha.setText("");
+            vista.txtCantidad.setText("");
+            vista.txtPresioCom.setText("");
+            vista.cbxIdProducto.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(null, "Registro Modificado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
+        }
+    }
+
+    private void datos() {
+        int row;
+        row = vista.tblCompras.getSelectedRow();
+        cvo.setId_compra(Integer.parseInt(vista.tblCompras.getValueAt(row, 0).toString()));
+        vista.txtFecha.setText(String.valueOf(vista.tblCompras.getValueAt(row, 1)));
+        vista.txtCantidad.setText(String.valueOf(vista.tblCompras.getValueAt(row, 2)));
+        vista.txtPresioCom.setText(String.valueOf(vista.tblCompras.getValueAt(row, 3)));
+        cvo.setFk_id_producto((int) vista.tblCompras.getValueAt(row, 4));
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -114,11 +144,20 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
         if (e.getSource() == vista.jbtnCompraD) {
             this.mostrar();
         }
+        if (e.getSource() == vista.jbtnCompraE) {
+            this.modi();
+            this.mostrar();
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.eliminar();
+        if (e.getClickCount() == 1) {
+            this.datos();
+        }
+        if (e.getClickCount() == 2) {
+            this.eliminar();
+        }
         this.mostrar();
     }
 

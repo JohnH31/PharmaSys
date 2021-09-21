@@ -81,6 +81,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar2.add(jMenu4);
 
         menuCliente.setText("Clientes");
+        menuCliente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         MenusCliente.setText("MenuCliente");
         menuCliente.add(MenusCliente);
@@ -101,6 +102,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar2.add(jMenu6);
 
         jMenu2.setText("Productos");
+        jMenu2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         menuProductos.setText("MenuProductos");
         jMenu2.add(menuProductos);
@@ -108,6 +110,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar2.add(jMenu2);
 
         jMenu3.setText("Compras");
+        jMenu3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         menuCompras.setText("MenuCompras");
         jMenu3.add(menuCompras);
@@ -123,6 +126,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar2.add(jMenu5);
 
         jMenu8.setText("Pedidos");
+        jMenu8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         menuPedidos.setText("MenuPedidos");
         menuPedidos.addActionListener(new java.awt.event.ActionListener() {

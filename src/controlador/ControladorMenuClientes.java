@@ -36,6 +36,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener {
         vista.btnGuardar.addActionListener(this);
         vista.btnEliminar.addActionListener(this);
         vista.tblClientes.addMouseListener(this);
+        vista.btnEditar.addActionListener(this);
         menu.MenusCliente.addActionListener(this);
     }
     private void insertar() {
@@ -83,6 +84,31 @@ public class ControladorMenuClientes implements ActionListener, MouseListener {
         }
     }
     
+    private void modi() {      
+          try {
+              cvo.getId_cliente();
+              cvo.setNombre_cliente(vista.txtNombre.getText());
+              cvo.setApellido_cliente(vista.txtApellido.getText());
+              cvo.setDireccion_cliente(vista.txtDireccion.getText());
+              cdao.actualizar(cvo);
+              vista.txtNombre.setText("");
+              vista.txtApellido.setText("");
+              vista.txtDireccion.setText("");
+            JOptionPane.showMessageDialog(null, "Registro Modificado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
+        }
+    }
+    
+    private void datos() {
+        int row;
+        row = vista.tblClientes.getSelectedRow();
+        cvo.setId_cliente(Integer.parseInt(vista.tblClientes.getValueAt(row, 0).toString()));
+        vista.txtNombre.setText(String.valueOf(vista.tblClientes.getValueAt(row, 1)));
+        vista.txtApellido.setText(String.valueOf(vista.tblClientes.getValueAt(row, 2)));
+        vista.txtDireccion.setText(String.valueOf(vista.tblClientes.getValueAt(row, 3)));
+        
+    }
     
     
     @Override
@@ -96,12 +122,23 @@ public class ControladorMenuClientes implements ActionListener, MouseListener {
         if (e.getSource() == vista.btnEliminar) {
             this.mostrar();
         }
+        if (e.getSource() == vista.btnEditar) {
+            this.modi();
+            this.mostrar();
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.eliminar();
-        this.mostrar();
+        if (e.getClickCount()==1) {
+            this.datos();
+        }
+        if (e.getClickCount()==2) {
+            this.eliminar();    
+        }
+       this.mostrar();
+        
+        
     }
 
     @Override

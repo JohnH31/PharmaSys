@@ -34,6 +34,7 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
     this.vista = vista;
     
     vista.jbtnProductoD.addActionListener(this);
+    vista.jbtnProductoE.addActionListener(this);
     vista.tblProducto.addMouseListener(this);
     
     }
@@ -66,16 +67,52 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         }
     }
     
+        private void modi() {
+        try {
+            pvo.getId_producto();
+            pvo.setNombre_producto(vista.jtxfNombrePt.getText());
+            pvo.setTipo_producto(vista.jtxfTipoPt.getText());
+            pvo.setDescripcion_producto(vista.jtxaDescripcionPt.getText());
+            pdao.actualizar(pvo);
+            vista.jtxfNombrePt.setText("");
+            vista.jtxfTipoPt.setText("");
+            vista.jtxaDescripcionPt.setText("");
+            JOptionPane.showMessageDialog(null, "Registro Modificado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
+        }
+    }
+
+    private void datos() {
+        int row;
+        row = vista.tblProducto.getSelectedRow();
+        pvo.setId_producto(Integer.parseInt(vista.tblProducto.getValueAt(row, 0).toString()));
+        vista.jtxfNombrePt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 1)));
+        vista.jtxfTipoPt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 2)));
+        vista.jtxaDescripcionPt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 3)));
+
+    }
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
          if (e.getSource() == vista.jbtnProductoD) {
+            this.mostrar();
+        }
+        if (e.getSource() == vista.jbtnProductoE) {
+            this.modi();
             this.mostrar();
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.eliminar();
+        if (e.getClickCount() == 1) {
+            this.datos();
+        }
+        if (e.getClickCount() == 2) {
+            this.eliminar();
+        }
         this.mostrar();
     }
 

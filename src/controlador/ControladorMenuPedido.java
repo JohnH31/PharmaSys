@@ -37,6 +37,7 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
         
         vista.btnGuardar.addActionListener(this);
         vista.btnEliminar.addActionListener(this);
+        vista.btnEditar.addActionListener(this);
         vista.tblPedido.addMouseListener(this);
         menu.menuPedidos.addActionListener(this);
     }
@@ -106,6 +107,35 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
             }
         }
     }
+    
+    private void modi() {
+        try {
+            pvo.getId_pedido();
+            pvo.setFecha_pedido(vista.txtFecha.getText());
+            pvo.setDescripcion_pedido(vista.txtDescripcion.getText());
+            pvo.setEstado_pedido(Boolean.parseBoolean(vista.cbxEstadoPedido.getSelectedItem().toString()));
+            pvo.setFk_id_producto_pedido(Integer.parseInt(vista.cbxIdProducto1.getSelectedItem().toString()));
+            pdao.actualizar(pvo);
+            vista.txtFecha.setText("");
+            vista.txtDescripcion.setText("");
+            vista.cbxEstadoPedido.setSelectedIndex(0);
+            vista.cbxIdProducto1.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(null, "Registro Modificado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
+        }
+    }
+
+    private void datos() {
+        int row;
+        row = vista.tblPedido.getSelectedRow();
+        pvo.setId_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 0).toString()));
+        vista.txtFecha.setText(String.valueOf(vista.tblPedido.getValueAt(row, 1)));
+        vista.txtDescripcion.setText(String.valueOf(vista.tblPedido.getValueAt(row, 2)));
+        pvo.setEstado_pedido((boolean) vista.tblPedido.getValueAt(row, 3));
+        pvo.setFk_id_producto_pedido((int) vista.tblPedido.getValueAt(row, 4));
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -118,11 +148,20 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
         if (e.getSource() == vista.btnEliminar) {
             this.mostrar();
         }
+        if (e.getSource() == vista.btnEditar) {
+            this.modi();
+            this.mostrar();
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.eliminar();
+        if (e.getClickCount() == 1) {
+            this.datos();
+        }
+        if (e.getClickCount() == 2) {
+            this.eliminar();
+        }
         this.mostrar();
     }
 
