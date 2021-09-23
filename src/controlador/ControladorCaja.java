@@ -17,60 +17,51 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import modelo.ClienteDAO;
-import modelo.ClienteVO;
-import vista.FrmClientes;
+import modelo.PedidoDAO;
+import modelo.PedidoVO;
+import vista.FrmCaja;
 import vista.FrmMenu;
 
 /**
  *
  * @author John
  */
-public class ControladorMenuClientes implements ActionListener, MouseListener, KeyListener,WindowListener {
-
-    ClienteDAO cdao = new ClienteDAO();
-    ClienteVO cvo = new ClienteVO();
+public class ControladorCaja implements ActionListener, MouseListener, KeyListener,WindowListener{
+    
+    PedidoDAO pdao = new PedidoDAO();
+    PedidoVO pvo = new PedidoVO();
     FrmMenu menu = new FrmMenu();
-    FrmClientes vista = new FrmClientes();
+    FrmCaja vista = new FrmCaja();
     DefaultTableModel m; //= new DefaultTableModel();
     TableRowSorter tr;
 
-    public ControladorMenuClientes(ClienteDAO cdao,ClienteVO cvo,FrmMenu menu,FrmClientes vista) {
-        this.cdao = cdao;
-        this.cvo = cvo;
+    public ControladorCaja(PedidoDAO pdao,PedidoVO pvo,FrmMenu menu,FrmCaja vista) {
+        this.pdao = pdao;
+        this.pvo = pvo;
         this.menu = menu;
         this.vista = vista;
         
-        vista.btnGuardar.addActionListener(this);
         vista.btnEliminar.addActionListener(this);
-        vista.tblClientes.addMouseListener(this);
-        vista.btnEditar.addActionListener(this);
-        menu.MenusCliente.addActionListener(this);
+        vista.btnModificar.addActionListener(this);
+        vista.tblPedido.addMouseListener(this);
+        menu.btncaja.addActionListener(this);
         vista.addWindowListener(this);
         vista.txtFiltro.addKeyListener(this);
+        
     }
-    private void insertar() {
-        try {
-            cvo.setNombre_cliente(vista.txtNombre.getText());
-            cvo.setApellido_cliente(vista.txtApellido.getText());
-            cvo.setDireccion_cliente(vista.txtDireccion.getText());
-            cdao.insertar(cvo);
-            vista.txtNombre.setText("");
-            vista.txtApellido.setText("");
-            vista.txtDireccion.setText("");
-            JOptionPane.showMessageDialog(null, "Registro Ingresado");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
-        }
-    }
-
+    public void cargarProducto() {
+        vista.cbxEstadoPedido.removeAllItems();
+        vista.cbxEstadoPedido.addItem("Seleccione Estado");
+        vista.cbxEstadoPedido.addItem("TRUE");
+        vista.cbxEstadoPedido.addItem("FALSE");
+            }
     
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column==4) {
+                if (column==5) {
                     return true;
                 }else{
                     return false;
@@ -81,85 +72,82 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         tr = new TableRowSorter(m);
         m.setColumnCount(0);
         m.addColumn("Id");
-        m.addColumn("Nombre");
-        m.addColumn("Apellido");
-        m.addColumn("Direccion");
-        for (ClienteVO cvo : cdao.consultarTabla()) {
-            m.addRow(new Object[]{cvo.getId_cliente(),cvo.getNombre_cliente(),cvo.getApellido_cliente(),cvo.getDireccion_cliente()});
+        m.addColumn("Fecha");
+        m.addColumn("Descripcion");
+        m.addColumn("Estado Pedido");
+        m.addColumn("IdProducto");
+        for (PedidoVO pvo : pdao.consultarTabla()) {
+            m.addRow(new Object[]{pvo.getId_pedido(),pvo.getFecha_pedido(),pvo.getDescripcion_pedido(),pvo.isEstado_pedido(),pvo.getFk_id_producto_pedido()});
         }
-        vista.tblClientes.setModel(m);
-        vista.tblClientes.setRowSorter(tr);
-    }
+        vista.tblPedido.setModel(m);
+        vista.tblPedido.setRowSorter(tr);
 
+    }
+    
     private void eliminar() {
 
-        int row = vista.tblClientes.getSelectedRow();
-        cvo.setId_cliente(Integer.parseInt(vista.tblClientes.getValueAt(row, 0).toString()));
+        int row = vista.tblPedido.getSelectedRow();
+        pvo.setId_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 0).toString()));
         int men = JOptionPane.showConfirmDialog(null, "Estas seguro que deceas eliminar el registro?", "pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (men == JOptionPane.YES_OPTION) {
             try {
-                cdao.eliminar(cvo);
-                cvo.setId_cliente(row);
+                pdao.eliminar(pvo);
+                pvo.setId_pedido(row);
             } catch (Exception e) {
                 System.out.println("Mensaje eliminar" + e.getMessage());
             }
         }
     }
     
-    private void modi() {      
-          try {
-              cvo.getId_cliente();
-              cvo.setNombre_cliente(vista.txtNombre.getText());
-              cvo.setApellido_cliente(vista.txtApellido.getText());
-              cvo.setDireccion_cliente(vista.txtDireccion.getText());
-              cdao.actualizar(cvo);
-              vista.txtNombre.setText("");
-              vista.txtApellido.setText("");
-              vista.txtDireccion.setText("");
+    private void modi() {
+        try {
+            pvo.getId_pedido();
+            pvo.getFecha_pedido();
+            pvo.getDescripcion_pedido();
+            pvo.setEstado_pedido(Boolean.parseBoolean(vista.cbxEstadoPedido.getSelectedItem().toString()));
+            pvo.getFk_id_producto_pedido();
+            pdao.actualizar(pvo);
+            vista.cbxEstadoPedido.setSelectedIndex(0);
             JOptionPane.showMessageDialog(null, "Registro Modificado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
         }
     }
-    
+
     private void datos() {
         int row;
-        row = vista.tblClientes.getSelectedRow();
-        cvo.setId_cliente(Integer.parseInt(vista.tblClientes.getValueAt(row, 0).toString()));
-        vista.txtNombre.setText(String.valueOf(vista.tblClientes.getValueAt(row, 1)));
-        vista.txtApellido.setText(String.valueOf(vista.tblClientes.getValueAt(row, 2)));
-        vista.txtDireccion.setText(String.valueOf(vista.tblClientes.getValueAt(row, 3)));
-        
+        row = vista.tblPedido.getSelectedRow();
+        pvo.setId_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 0).toString()));
+        pvo.setFecha_pedido(String.valueOf(vista.tblPedido.getValueAt(row, 1)));
+        pvo.setDescripcion_pedido(String.valueOf(vista.tblPedido.getValueAt(row, 2)));
+        pvo.setEstado_pedido((boolean) vista.tblPedido.getValueAt(row, 3));
+        pvo.setFk_id_producto_pedido((int) vista.tblPedido.getValueAt(row, 4));
+
     }
     
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == menu.MenusCliente) {
+        if (e.getSource() == menu.btncaja) {
             vista.setVisible(true);
-        }
-        if (e.getSource() == vista.btnGuardar) {
-            this.insertar();
         }
         if (e.getSource() == vista.btnEliminar) {
             JOptionPane.showMessageDialog(null, "Hacer doble clic en el registro que desea eliminar");
         }
-        if (e.getSource() == vista.btnEditar) {
+        if (e.getSource() == vista.btnModificar) {
             this.modi();
-            
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getClickCount()==1) {
+        if (e.getClickCount() == 1) {
             this.datos();
         }
-        if (e.getClickCount()==2) {
-            this.eliminar();    
-        }        
-        
+        if (e.getClickCount() == 2) {
+            this.eliminar();
+        }
     }
 
     @Override
@@ -181,6 +169,9 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
     @Override
     public void keyTyped(KeyEvent e) {
         this.mostrar();
+//        m = new DefaultTableModel();
+//        tr = new TableRowSorter(m);
+//        vista.tblPedido.setRowSorter(tr);
     }
 
     @Override
@@ -189,7 +180,8 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
 
     @Override
     public void keyReleased(KeyEvent e) {
-        tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
+        tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 3));
+        
     }
 
     @Override

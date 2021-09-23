@@ -7,10 +7,16 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.PedidoDAO;
 import modelo.PedidoVO;
 import modelo.ProductoDAO;
@@ -22,12 +28,14 @@ import vista.FrmPedido;
  *
  * @author John
  */
-public class ControladorMenuPedido implements ActionListener, MouseListener{
+public class ControladorMenuPedido implements ActionListener, MouseListener,KeyListener,WindowListener{
     
     PedidoDAO pdao = new PedidoDAO();
     PedidoVO pvo = new PedidoVO();
     FrmMenu menu = new FrmMenu();
     FrmPedido vista = new FrmPedido();
+    DefaultTableModel m; //= new DefaultTableModel();
+    TableRowSorter tr;
 
     public ControladorMenuPedido(PedidoDAO pdao,PedidoVO pvo,FrmMenu menu,FrmPedido vista) {
         this.pdao = pdao;
@@ -40,6 +48,8 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
         vista.btnEditar.addActionListener(this);
         vista.tblPedido.addMouseListener(this);
         menu.menuPedidos.addActionListener(this);
+        vista.addWindowListener(this);
+        vista.txtFiltro.addKeyListener(this);
     }
    
     private void insertar() {
@@ -79,7 +89,19 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
     }
     
     private void mostrar() {
-        DefaultTableModel m = new DefaultTableModel();
+        //DefaultTableModel m = new DefaultTableModel();
+        m = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column==5) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            
+        };
+        tr = new TableRowSorter(m);
         m.setColumnCount(0);
         m.addColumn("Id");
         m.addColumn("Fecha");
@@ -90,6 +112,7 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
             m.addRow(new Object[]{pvo.getId_pedido(),pvo.getFecha_pedido(),pvo.getDescripcion_pedido(),pvo.isEstado_pedido(),pvo.getFk_id_producto_pedido()});
         }
         vista.tblPedido.setModel(m);
+        vista.tblPedido.setRowSorter(tr);
     }
 
     private void eliminar() {
@@ -146,11 +169,11 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
             this.insertar();
         }
         if (e.getSource() == vista.btnEliminar) {
-            this.mostrar();
+            JOptionPane.showMessageDialog(null, "Hacer doble clic en el registro que desea eliminar");
         }
         if (e.getSource() == vista.btnEditar) {
             this.modi();
-            this.mostrar();
+            
         }
     }
 
@@ -162,7 +185,7 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
         if (e.getClickCount() == 2) {
             this.eliminar();
         }
-        this.mostrar();
+       
     }
 
     @Override
@@ -179,6 +202,50 @@ public class ControladorMenuPedido implements ActionListener, MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(),1));
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
     }
     
 }

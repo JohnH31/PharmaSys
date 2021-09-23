@@ -7,10 +7,16 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.ProveedorDAO;
 import modelo.ProveedorVO;
 import vista.FrmMenu;
@@ -20,12 +26,14 @@ import vista.FrmProveedor;
  *
  * @author John
  */
-public class ControladorMenuProveedor implements ActionListener, MouseListener {
+public class ControladorMenuProveedor implements ActionListener, MouseListener, KeyListener,WindowListener{
 
     ProveedorDAO pdao = new ProveedorDAO();
     ProveedorVO pvo = new ProveedorVO();
     FrmMenu menu = new FrmMenu();
     FrmProveedor vista = new FrmProveedor();
+    DefaultTableModel m; //= new DefaultTableModel();
+    TableRowSorter tr;
 
     public ControladorMenuProveedor(ProveedorDAO pdao, ProveedorVO pvo, FrmMenu menu, FrmProveedor vista) {
         this.pdao = pdao;
@@ -38,6 +46,8 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener {
         vista.tblProveedores.addMouseListener(this);
         vista.jtbnEditarP.addActionListener(this);
         menu.menuProveedores.addActionListener(this);
+        vista.addWindowListener(this);
+        vista.txtFiltro.addKeyListener(this);
     }
 
     private void insertar() {
@@ -58,7 +68,19 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener {
     }
 
     private void mostrar() {
-        DefaultTableModel m = new DefaultTableModel();
+        //DefaultTableModel m = new DefaultTableModel();
+        m = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column==5) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            
+        };
+        tr = new TableRowSorter(m);
         m.setColumnCount(0);
         m.addColumn("Id");
         m.addColumn("Nombre");
@@ -69,6 +91,7 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener {
             m.addRow(new Object[]{pvo.getId_proveedor(), pvo.getNombre_proveedor(), pvo.getTelefono_proveedor(), pvo.getDireccion_proveedor(), pvo.getCorreo_proveedor()});
         }
         vista.tblProveedores.setModel(m);
+        vista.tblProveedores.setRowSorter(tr);
     }
 
     private void eliminar() {
@@ -125,11 +148,11 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener {
             this.insertar();
         }
         if (e.getSource() == vista.jtbEliminarP) {
-            this.mostrar();
+            JOptionPane.showMessageDialog(null, "Hacer doble clic en el registro que desea eliminar");
         }
         if (e.getSource() == vista.jtbnEditarP) {
             this.modi();
-            this.mostrar();
+   
         }
     }
 
@@ -141,7 +164,6 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener {
         if (e.getClickCount() == 2) {
             this.eliminar();
         }
-        this.mostrar();
     }
 
     @Override
@@ -158,6 +180,50 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
     }
 
 }

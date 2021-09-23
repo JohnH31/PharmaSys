@@ -5,6 +5,7 @@
  */
 package farmaciapharmasys;
 
+import controlador.ControladorCaja;
 import controlador.ControladorEliminarProducto;
 import controlador.ControladorEliminarUsuario;
 import controlador.ControladorIngresarProducto;
@@ -27,6 +28,7 @@ import modelo.ProveedorVO;
 import modelo.UsuarioDAO;
 import modelo.UsuarioVO;
 import vista.FrmAgregarUsuario;
+import vista.FrmCaja;
 import vista.FrmClientes;
 import vista.FrmCompras;
 import vista.FrmEliminarUsuario;
@@ -66,6 +68,7 @@ public class FarmaciaPharmaSys {
         FrmProductos frp = new FrmProductos();
         FrmLogin lo = new FrmLogin();
         FrmMenu me = new FrmMenu();
+        FrmCaja caja = new FrmCaja();
         FrmAgregarUsuario au = new FrmAgregarUsuario();
         FrmEliminarUsuario eu = new FrmEliminarUsuario();
         
@@ -78,6 +81,7 @@ public class FarmaciaPharmaSys {
         ControladorMenuProveedor cmpp = new ControladorMenuProveedor(prdao, prvo, me, fpro);
         ControladorMenuClientes cmcl = new ControladorMenuClientes(cldao, clvo, me, fcle);
         ControladorMenuPedido cmped = new ControladorMenuPedido(pedao, pevo, me, fpedi);
+        ControladorCaja ccaja = new ControladorCaja(pedao, pevo, me, caja);
         
         me.setVisible(true);
         me.setLocationRelativeTo(null);
@@ -85,6 +89,7 @@ public class FarmaciaPharmaSys {
         ciu.cargarTipoUsuario(0);
         cmc.cargarProducto(0);
         cmped.cargarProducto(0);
+        ccaja.cargarProducto();
     }
     
 }

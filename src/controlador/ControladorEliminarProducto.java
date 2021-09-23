@@ -7,10 +7,16 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.ProductoDAO;
 import modelo.ProductoVO;
 import modelo.UsuarioVO;
@@ -21,34 +27,51 @@ import vista.FrmProductos;
  *
  * @author John
  */
-public class ControladorEliminarProducto implements ActionListener, MouseListener{
-    
+public class ControladorEliminarProducto implements ActionListener, MouseListener, KeyListener, WindowListener {
+
     ProductoDAO pdao = new ProductoDAO();
     ProductoVO pvo = new ProductoVO();
     FrmMenu menu = new FrmMenu();
     FrmProductos vista = new FrmProductos();
+    DefaultTableModel m; //= new DefaultTableModel();
+    TableRowSorter tr;
 
-    public ControladorEliminarProducto(ProductoDAO pdao,ProductoVO pvo,FrmProductos vista ) {
-    this.pdao = pdao;
-    this.pvo = pvo;
-    this.vista = vista;
-    
-    vista.jbtnProductoD.addActionListener(this);
-    vista.jbtnProductoE.addActionListener(this);
-    vista.tblProducto.addMouseListener(this);
-    
+    public ControladorEliminarProducto(ProductoDAO pdao, ProductoVO pvo, FrmProductos vista) {
+        this.pdao = pdao;
+        this.pvo = pvo;
+        this.vista = vista;
+
+        vista.jbtnProductoD.addActionListener(this);
+        vista.jbtnProductoE.addActionListener(this);
+        vista.tblProducto.addMouseListener(this);
+        vista.addWindowListener(this);
+        vista.txtFiltro.addKeyListener(this);
     }
+
     private void mostrar() {
-        DefaultTableModel m = new DefaultTableModel();
+        //DefaultTableModel m = new DefaultTableModel();
+        m = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column==4) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            
+        };
+        tr = new TableRowSorter(m);
         m.setColumnCount(0);
         m.addColumn("Id");
         m.addColumn("Nombre");
         m.addColumn("Tipo");
         m.addColumn("Descripcion");
         for (ProductoVO pvo : pdao.consultarTabla()) {
-            m.addRow(new Object[]{pvo.getId_producto(),pvo.getNombre_producto(),pvo.getTipo_producto(),pvo.getDescripcion_producto()});
+            m.addRow(new Object[]{pvo.getId_producto(), pvo.getNombre_producto(), pvo.getTipo_producto(), pvo.getDescripcion_producto()});
         }
         vista.tblProducto.setModel(m);
+        vista.tblProducto.setRowSorter(tr);
     }
 
     private void eliminar() {
@@ -66,8 +89,8 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
             }
         }
     }
-    
-        private void modi() {
+
+    private void modi() {
         try {
             pvo.getId_producto();
             pvo.setNombre_producto(vista.jtxfNombrePt.getText());
@@ -92,16 +115,15 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         vista.jtxaDescripcionPt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 3)));
 
     }
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-         if (e.getSource() == vista.jbtnProductoD) {
-            this.mostrar();
+        if (e.getSource() == vista.jbtnProductoD) {
+            JOptionPane.showMessageDialog(null, "Hacer doble clic en el registro que desea eliminar");
         }
         if (e.getSource() == vista.jbtnProductoE) {
             this.modi();
-            this.mostrar();
+           
         }
     }
 
@@ -113,7 +135,6 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         if (e.getClickCount() == 2) {
             this.eliminar();
         }
-        this.mostrar();
     }
 
     @Override
@@ -131,5 +152,49 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
     @Override
     public void mouseExited(MouseEvent e) {
     }
-   
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+
 }

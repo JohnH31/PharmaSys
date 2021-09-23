@@ -7,10 +7,16 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.CompraDAO;
 import modelo.CompraVO;
 import modelo.ProductoDAO;
@@ -22,12 +28,14 @@ import vista.FrmMenu;
  *
  * @author John
  */
-public class ControladorMenuCompras implements ActionListener, MouseListener {
+public class ControladorMenuCompras implements ActionListener, MouseListener,KeyListener,WindowListener {
     
     CompraDAO cdao = new CompraDAO();
     CompraVO cvo = new CompraVO();
     FrmMenu menu = new FrmMenu();
     FrmCompras vista = new FrmCompras();
+    DefaultTableModel m; //= new DefaultTableModel();
+    TableRowSorter tr;
 
     public ControladorMenuCompras(CompraDAO cdao,CompraVO cvo,FrmMenu menu,FrmCompras vista) {
         this.cdao = cdao;
@@ -40,6 +48,8 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
         vista.jbtnCompraE.addActionListener(this);
         vista.tblCompras.addMouseListener(this);
         menu.menuCompras.addActionListener(this);
+        vista.addWindowListener(this);
+        vista.txtFiltro.addKeyListener(this);
     }   
     
     private void insertarCompra() {
@@ -75,7 +85,19 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
     }
     
     private void mostrar() {
-        DefaultTableModel m = new DefaultTableModel();
+        //DefaultTableModel m = new DefaultTableModel();
+        m = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column==5) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            
+        };
+        tr = new TableRowSorter(m);
         m.setColumnCount(0);
         m.addColumn("Id");
         m.addColumn("Fecha");
@@ -86,6 +108,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
             m.addRow(new Object[]{cvo.getId_compra(),cvo.getFecha_compra(),cvo.getCantidad_producto(),cvo.getPrecio_producto(),cvo.getFk_id_producto()});
         }
         vista.tblCompras.setModel(m);
+        vista.tblCompras.setRowSorter(tr);
     }
 
     private void eliminar() {
@@ -142,11 +165,10 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
             this.insertarCompra();
         }
         if (e.getSource() == vista.jbtnCompraD) {
-            this.mostrar();
+            JOptionPane.showMessageDialog(null, "Hacer doble clic en el registro que desea eliminar");
         }
         if (e.getSource() == vista.jbtnCompraE) {
             this.modi();
-            this.mostrar();
         }
     }
 
@@ -158,7 +180,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
         if (e.getClickCount() == 2) {
             this.eliminar();
         }
-        this.mostrar();
+
     }
 
     @Override
@@ -176,5 +198,49 @@ public class ControladorMenuCompras implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+         this.mostrar();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        this.mostrar();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
     }
 }

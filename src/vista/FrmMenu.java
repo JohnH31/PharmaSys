@@ -32,6 +32,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jmiCrear = new javax.swing.JMenuItem();
         jmiEliminar = new javax.swing.JMenuItem();
         jmiRoles = new javax.swing.JMenuItem();
+        btncaja = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenu();
         MenusCliente = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -77,6 +78,14 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jmiRoles);
+
+        btncaja.setText("Caja");
+        btncaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncajaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btncaja);
 
         jMenuBar2.add(jMenu4);
 
@@ -220,6 +229,10 @@ public class FrmMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiComprasRActionPerformed
 
+    private void btncajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncajaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btncajaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +270,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem MenusCliente;
+    public javax.swing.JMenuItem btncaja;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
