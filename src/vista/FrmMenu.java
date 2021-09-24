@@ -33,6 +33,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jmiEliminar = new javax.swing.JMenuItem();
         jmiRoles = new javax.swing.JMenuItem();
         btncaja = new javax.swing.JMenuItem();
+        btnFactura = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenu();
         MenusCliente = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -86,6 +87,14 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         jMenu4.add(btncaja);
+
+        btnFactura.setText("Factura");
+        btnFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnFactura);
 
         jMenuBar2.add(jMenu4);
 
@@ -233,6 +242,10 @@ public class FrmMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btncajaActionPerformed
 
+    private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFacturaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -270,6 +283,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem MenusCliente;
+    public javax.swing.JMenuItem btnFactura;
     public javax.swing.JMenuItem btncaja;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

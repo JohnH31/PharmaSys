@@ -16,5 +16,6 @@ public interface ConsultaProductoDAO {
      public void actualizar(ProductoVO p);
      public void eliminar(ProductoVO p);
      public ArrayList<ProductoVO> consultarTabla();
+     public ArrayList<ProductoVO> consultarJoin();
 
 }

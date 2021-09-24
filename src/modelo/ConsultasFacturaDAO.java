@@ -11,10 +11,9 @@ import java.util.ArrayList;
  *
  * @author John
  */
-public interface ConsultasPedidoDAO {
-    public void insertar(PedidoVO p);
-    public void actualizar(PedidoVO p);
-    public void eliminar(PedidoVO p);
-    public ArrayList<PedidoVO> consultarTabla();
-    public ArrayList<PedidoVO> consultarJoin();
+public interface ConsultasFacturaDAO {
+    public void insertar(FacturaVO f);
+    public void actualizar(FacturaVO f);
+    public void eliminar(FacturaVO f);
+    public ArrayList<FacturaVO> consultarTabla();
 }

@@ -8,6 +8,7 @@ package farmaciapharmasys;
 import controlador.ControladorCaja;
 import controlador.ControladorEliminarProducto;
 import controlador.ControladorEliminarUsuario;
+import controlador.ControladorFactura;
 import controlador.ControladorIngresarProducto;
 import controlador.ControladorIngresarUsuario;
 import controlador.ControladorLogin;
@@ -19,6 +20,10 @@ import modelo.ClienteDAO;
 import modelo.ClienteVO;
 import modelo.CompraDAO;
 import modelo.CompraVO;
+import modelo.DetalleFacDAO;
+import modelo.DetalleFacVO;
+import modelo.FacturaDAO;
+import modelo.FacturaVO;
 import modelo.PedidoDAO;
 import modelo.PedidoVO;
 import modelo.ProductoDAO;
@@ -32,11 +37,13 @@ import vista.FrmCaja;
 import vista.FrmClientes;
 import vista.FrmCompras;
 import vista.FrmEliminarUsuario;
+import vista.FrmFactura;
 import vista.FrmLogin;
 import vista.FrmMenu;
 import vista.FrmPedido;
 import vista.FrmProductos;
 import vista.FrmProveedor;
+import vista.FrmVistaFYD;
 
 /**
  *
@@ -61,6 +68,11 @@ public class FarmaciaPharmaSys {
         ClienteVO clvo = new ClienteVO();
         PedidoDAO pedao = new PedidoDAO();
         PedidoVO pevo = new PedidoVO();
+        FacturaDAO fdao = new FacturaDAO();
+        FacturaVO fvo = new FacturaVO();
+        DetalleFacDAO dfdao = new DetalleFacDAO();
+        DetalleFacVO dfvo = new DetalleFacVO();
+        FrmFactura vista = new FrmFactura();
         FrmPedido fpedi = new FrmPedido();
         FrmClientes fcle = new FrmClientes();
         FrmProveedor fpro = new FrmProveedor();
@@ -69,6 +81,7 @@ public class FarmaciaPharmaSys {
         FrmLogin lo = new FrmLogin();
         FrmMenu me = new FrmMenu();
         FrmCaja caja = new FrmCaja();
+        FrmVistaFYD ffyd = new FrmVistaFYD();
         FrmAgregarUsuario au = new FrmAgregarUsuario();
         FrmEliminarUsuario eu = new FrmEliminarUsuario();
         
@@ -82,6 +95,7 @@ public class FarmaciaPharmaSys {
         ControladorMenuClientes cmcl = new ControladorMenuClientes(cldao, clvo, me, fcle);
         ControladorMenuPedido cmped = new ControladorMenuPedido(pedao, pevo, me, fpedi);
         ControladorCaja ccaja = new ControladorCaja(pedao, pevo, me, caja);
+        ControladorFactura cfac = new ControladorFactura(fdao, fvo, dfdao, dfvo, pedao, pevo, pdao, pvo, me, vista,ffyd);
         
         me.setVisible(true);
         me.setLocationRelativeTo(null);
@@ -90,6 +104,8 @@ public class FarmaciaPharmaSys {
         cmc.cargarProducto(0);
         cmped.cargarProducto(0);
         ccaja.cargarProducto();
+        cfac.cargarCliente(0);
+        cfac.cargarProducto(0);
     }
     
 }

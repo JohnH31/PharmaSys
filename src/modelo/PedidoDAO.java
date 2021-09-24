@@ -79,5 +79,34 @@ public class PedidoDAO implements ConsultasPedidoDAO{
         }
         return info;
    }
+
+    @Override
+    public ArrayList<PedidoVO> consultarJoin() {
+        Conector c = new Conector();
+        ArrayList<PedidoVO> info = new ArrayList<>();
+        ArrayList<ProductoVO> infos = new ArrayList<>();
+        try {
+            c.conectar();
+            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,fecha_pedido,descripcion_pedido,estado_pedido,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
+            ResultSet rs = c.consulta_datos(consulta);
+            while(rs.next()){
+                PedidoVO pvo = new PedidoVO();
+                ProductoVO dvo = new ProductoVO();
+                dvo.setId_producto(rs.getInt(1));
+                dvo.setNombre_producto(rs.getString(2));
+                dvo.setTipo_producto(rs.getString(3));
+                pvo.setFecha_pedido(rs.getString(4));
+                pvo.setDescripcion_pedido(rs.getString(5));
+                pvo.setEstado_pedido(rs.getBoolean(6));
+                pvo.setFk_id_producto_pedido(rs.getInt(7));
+                info.add(pvo);
+                infos.add(dvo);
+            }
+            c.desconectar();
+        } catch (Exception e) {
+            System.out.println("Mensaje Mostrar Datos "+e.getMessage());
+        }
+        return info;    
+    }
     
 }
