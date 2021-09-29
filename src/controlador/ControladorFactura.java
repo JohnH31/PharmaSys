@@ -49,8 +49,8 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
     FrmMenu menu = new FrmMenu();
     FrmFactura vista = new FrmFactura();
     FrmVistaFYD vista2 = new FrmVistaFYD();
-    DefaultTableModel m; //= new DefaultTableModel();
-    TableRowSorter tr;
+    DefaultTableModel m; //= new DefaultTableModel(); metodo para el uso de la tabla
+    TableRowSorter tr;//metodo para el filtro en la tabla
     TableRowSorter tr1;
 
     public ControladorFactura(FacturaDAO fdao, FacturaVO fvo, DetalleFacDAO dfdao, DetalleFacVO dfvo, PedidoDAO pdao, PedidoVO pvo, ProductoDAO prdao, ProductoVO prvo, FrmMenu menu, FrmFactura vista, FrmVistaFYD vista2) {
@@ -76,14 +76,16 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         vista2.tblFacturasDetalle.addMouseListener(this);
         vista.txtFiltro.addKeyListener(this);
         vista.btntablasfyd.addActionListener(this);
+        menu.jmiFacturaR.addActionListener(this);
     }
-
+    //metodo para ingresar datos a la bd
     private void insertar() {
         try {
             fvo.setFecha_factura(vista.txtFecha.getText());
             fvo.setFk_id_cliente(Integer.parseInt(vista.cbxCliente.getSelectedItem().toString()));
             dfvo.setCantidad_producto(Integer.parseInt(vista.txtCantidad.getText()));
-            int total = Integer.parseInt(vista.txtCantidad.getText()) * Integer.parseInt(vista.txtPresio.getText());
+            dfvo.setPresio_factura(Double.parseDouble(vista.txtPresio.getText()));
+            double total = Integer.parseInt(vista.txtCantidad.getText()) * Double.parseDouble(vista.txtPresio.getText());
             dfvo.setTotal_factura(total);
             dfvo.setFk_id_producto(Integer.parseInt(vista.cbxIdProducto.getSelectedItem().toString()));
             fdao.insertar(fvo);
@@ -99,7 +101,8 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
         }
     }
-
+    
+    //metodo para cargar los productos en el combobox
     public void cargarProducto(int buscar) {
         ProductoDAO pdao = new ProductoDAO();
         int index = 1;
@@ -114,7 +117,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             index++;
         }
     }
-
+    //metodo para cargar los clientes en el combobox
     public void cargarCliente(int buscar) {
         ClienteDAO cdao = new ClienteDAO();
         int index = 1;
@@ -129,7 +132,8 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             index++;
         }
     }
-
+    
+    //metodos para mostrar el contenido de la bd a las tablas
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel() {
@@ -148,8 +152,9 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m.addColumn("id Producto");
         m.addColumn("Producto");
         m.addColumn("Tipo");
+        m.addColumn("Presio");
         for (ProductoVO prvo : prdao.consultarJoin()) {
-            m.addRow(new Object[]{prvo.getId_producto(), prvo.getNombre_producto(), prvo.getTipo_producto()});
+            m.addRow(new Object[]{prvo.getId_producto(), prvo.getNombre_producto(), prvo.getTipo_producto(),prvo.getPresio_producto()});
         }
         vista.tblFactura.setModel(m);
         vista.tblFactura.setRowSorter(tr);
@@ -222,12 +227,13 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m.addColumn("cantidad");
         m.addColumn("total");
         m.addColumn("id producto");
+        m.addColumn("Presio");
         for (DetalleFacVO dfvo : dfdao.consultarTabla()) {
-            m.addRow(new Object[]{dfvo.getId_detalle_factura(), dfvo.getCantidad_producto(), dfvo.getTotal_factura(), dfvo.getFk_id_producto()});
+            m.addRow(new Object[]{dfvo.getId_detalle_factura(), dfvo.getCantidad_producto(), dfvo.getTotal_factura(), dfvo.getFk_id_producto(),dfvo.getPresio_factura()});
         }
         vista2.tblFacturasDetalle.setModel(m);
     }
-
+    //metodos para eliminar datos en la tabla de la bd 
     private void eliminar() {
 
         int row = vista2.tblFacturas.getSelectedRow();
@@ -259,14 +265,17 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             }
         }
     }
-
+    //metodo para modificar datos en la bd
     private void modi() {
         try {
             fvo.setId_factura(Integer.parseInt(vista.txtIDFactura.getText()));
             fvo.setFecha_factura(vista.txtFecha.getText());
             fvo.setFk_id_cliente(Integer.parseInt(vista.cbxCliente.getSelectedItem().toString()));
             dfvo.setCantidad_producto(Integer.parseInt(vista.txtCantidad.getText()));
-            dfvo.setTotal_factura(Integer.parseInt(vista.txtTotal.getText()));
+            dfvo.setPresio_factura(Double.parseDouble(vista.txtPresio.getText()));
+            double total = Integer.parseInt(vista.txtCantidad.getText()) * Double.parseDouble(vista.txtPresio.getText());
+            dfvo.setTotal_factura(total);
+            //dfvo.setTotal_factura(Integer.parseInt(vista.txtTotal.getText()));
 
             fdao.actualizar(fvo);
             dfdao.actualizar(dfvo);
@@ -281,7 +290,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
         }
     }
-
+    //metodo para cargar datos en la tabla de la bd
     private void datos() {
         try {
             int row;
@@ -302,11 +311,22 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             vista.txtCantidad.setText(String.valueOf(vista2.tblFacturasDetalle.getValueAt(row, 1).toString()));
             vista.txtTotal.setText(String.valueOf(vista2.tblFacturasDetalle.getValueAt(row, 2).toString()));
             dfvo.setFk_id_producto((int) vista2.tblFacturasDetalle.getValueAt(row, 3));
+            vista.txtPresio.setText(String.valueOf(vista2.tblFacturasDetalle.getValueAt(row, 4).toString()));
 
         } catch (Exception e) {
         }
     }
-
+    //Reporte
+    private void reporte() {
+        try {
+            fdao.reporte();
+            fdao.jv.setDefaultCloseOperation(menu.DISPOSE_ON_CLOSE);
+            fdao.jv.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Reporte No generado");
+        }
+    }
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menu.btnFactura) {
@@ -324,10 +344,12 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         }
         if (e.getSource() == vista.btntablasfyd) {
             vista2.setVisible(true);
-
+        }
+        if (e.getSource() == menu.jmiFacturaR) {
+            this.reporte();
         }
     }
-
+    //esto hace que al momento de dar un click o varios en las columnas y filas de las tablas hagan una funcion
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 1) {
@@ -355,7 +377,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    //me lee la funcion mostrar para poder saber que tabla es la que filtrara el contenido 
     @Override
     public void keyTyped(KeyEvent e) {
         this.mostrar();
@@ -365,13 +387,13 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
+    //con esta funcion hace que filre una columna en especifico
     @Override
     public void keyReleased(KeyEvent e) {
         tr.setRowFilter(RowFilter.regexFilter("(?i)" + vista.txtFiltro.getText(), 0));
         tr1.setRowFilter(RowFilter.regexFilter("(?i)" + vista.txtFiltro.getText(), 3));
     }
-
+    //esta funicon hace que al momento que se habra la vista me muestre el contenido de mi tabla 
     @Override
     public void windowOpened(WindowEvent e) {
         this.mostrar();

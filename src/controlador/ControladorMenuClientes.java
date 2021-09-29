@@ -32,8 +32,8 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
     ClienteVO cvo = new ClienteVO();
     FrmMenu menu = new FrmMenu();
     FrmClientes vista = new FrmClientes();
-    DefaultTableModel m; //= new DefaultTableModel();
-    TableRowSorter tr;
+    DefaultTableModel m; //= new DefaultTableModel(); metodo para el uso de la tabla
+    TableRowSorter tr;//metodo para el filtro en la tabla
 
     public ControladorMenuClientes(ClienteDAO cdao,ClienteVO cvo,FrmMenu menu,FrmClientes vista) {
         this.cdao = cdao;
@@ -48,7 +48,9 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         menu.MenusCliente.addActionListener(this);
         vista.addWindowListener(this);
         vista.txtFiltro.addKeyListener(this);
+        menu.jmiClientesR.addActionListener(this);
     }
+    //metodo para ingresar datos a la bd
     private void insertar() {
         try {
             cvo.setNombre_cliente(vista.txtNombre.getText());
@@ -64,7 +66,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         }
     }
 
-    
+    //metodo para mostrar los datos de la bd en la tabla
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel(){
@@ -90,7 +92,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         vista.tblClientes.setModel(m);
         vista.tblClientes.setRowSorter(tr);
     }
-
+    //metodo para eliminar datos en la tabla 
     private void eliminar() {
 
         int row = vista.tblClientes.getSelectedRow();
@@ -106,7 +108,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
             }
         }
     }
-    
+    //metodo para modificar datos en la bd
     private void modi() {      
           try {
               cvo.getId_cliente();
@@ -122,7 +124,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
         }
     }
-    
+    //metodo para cargar datos en la tabla de la bd
     private void datos() {
         int row;
         row = vista.tblClientes.getSelectedRow();
@@ -132,8 +134,18 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         vista.txtDireccion.setText(String.valueOf(vista.tblClientes.getValueAt(row, 3)));
         
     }
+    //Reporte
+    private void reporte() {
+        try {
+            cdao.reporte();
+            cdao.jv.setDefaultCloseOperation(menu.DISPOSE_ON_CLOSE);
+            cdao.jv.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Reporte No generado");
+        }
+    }
     
-    
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menu.MenusCliente) {
@@ -147,10 +159,12 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         }
         if (e.getSource() == vista.btnEditar) {
             this.modi();
-            
+        }
+        if (e.getSource() == menu.jmiClientesR) {
+            this.reporte();
         }
     }
-
+    //esto hace que al momento de dar un click o varios en las columnas y filas de las tablas hagan una funcion
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount()==1) {
@@ -177,7 +191,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    //me lee la funcion mostrar para poder saber que tabla es la que filtrara el contenido 
     @Override
     public void keyTyped(KeyEvent e) {
         this.mostrar();
@@ -186,12 +200,12 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
+    //con esta funcion hace que filre una columna en especifico
     @Override
     public void keyReleased(KeyEvent e) {
         tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
     }
-
+    //esta funicon hace que al momento que se habra la vista me muestre el contenido de mi tabla 
     @Override
     public void windowOpened(WindowEvent e) {
         this.mostrar();

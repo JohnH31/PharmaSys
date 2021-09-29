@@ -36,7 +36,7 @@ public class ControladorIngresarUsuario implements ActionListener {
         au.btnAgregarU.addActionListener(this);
         au.btnCancelarU.addActionListener(this);
     }
-
+    //metodo para ingresar datos a la bd
     private void insertarUsuario() {
         try {
             uvo.setUsuario(au.txtUsuarioU.getText());
@@ -51,7 +51,7 @@ public class ControladorIngresarUsuario implements ActionListener {
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
         }
     }
-
+    //metodo para cargar los tipos de usuario en el combobox
     public void cargarTipoUsuario(int buscar) {
         TipoUsuarioDAO tudao = new TipoUsuarioDAO();
         int index = 1;
@@ -66,7 +66,7 @@ public class ControladorIngresarUsuario implements ActionListener {
             index++;
         }
     }
-
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == au.btnAgregarU) {

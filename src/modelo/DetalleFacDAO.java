@@ -19,9 +19,9 @@ public class DetalleFacDAO implements ConsultasDetalleFacDAO{
     Conector c = new Conector();
         try {
             c.conectar();
-            String consulta = "INSERT INTO tbl_detalle_factura(cantidad_producto,total_factura,fk_id_producto)VALUES("
+            String consulta = "INSERT INTO tbl_detalle_factura(cantidad_producto,total_factura,fk_id_producto,presio_factura)VALUES("
                     +d.getCantidad_producto()+","+d.getTotal_factura()+","
-                    +d.getFk_id_producto()+");";
+                    +d.getFk_id_producto()+","+d.getPresio_factura()+");";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Insertar " + e.getMessage());
@@ -36,7 +36,7 @@ public class DetalleFacDAO implements ConsultasDetalleFacDAO{
             c.conectar();
             String consulta = "UPDATE tbl_detalle_factura SET cantidad_producto= "
                     + d.getCantidad_producto()+",total_factura="+d.getTotal_factura()
-                    +",fk_id_producto="+d.getFk_id_producto()
+                    +",fk_id_producto="+d.getFk_id_producto()+",presio_factura="+d.getPresio_factura()
                     +" WHERE id_detalle_factura = "+ d.getId_detalle_factura()+ ";";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
@@ -69,8 +69,9 @@ public class DetalleFacDAO implements ConsultasDetalleFacDAO{
                 DetalleFacVO pvo = new DetalleFacVO();
                 pvo.setId_detalle_factura(rs.getInt(1));
                 pvo.setCantidad_producto(rs.getInt(2));
-                pvo.setTotal_factura(rs.getInt(3));
+                pvo.setTotal_factura(rs.getDouble(3));
                 pvo.setFk_id_producto(rs.getInt(4));
+                pvo.setPresio_factura(rs.getDouble(5));
                 info.add(pvo);
             }
             c.desconectar();

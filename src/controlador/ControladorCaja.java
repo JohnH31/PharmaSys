@@ -32,8 +32,8 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
     PedidoVO pvo = new PedidoVO();
     FrmMenu menu = new FrmMenu();
     FrmCaja vista = new FrmCaja();
-    DefaultTableModel m; //= new DefaultTableModel();
-    TableRowSorter tr;
+    DefaultTableModel m; //= new DefaultTableModel(); metodo para el uso de la tabla
+    TableRowSorter tr;//metodo para el filtro en la tabla
 
     public ControladorCaja(PedidoDAO pdao,PedidoVO pvo,FrmMenu menu,FrmCaja vista) {
         this.pdao = pdao;
@@ -49,6 +49,8 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         vista.txtFiltro.addKeyListener(this);
         
     }
+    
+    //metodo para cargar los productos en el combobox
     public void cargarProducto() {
         vista.cbxEstadoPedido.removeAllItems();
         vista.cbxEstadoPedido.addItem("Seleccione Estado");
@@ -56,6 +58,7 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         vista.cbxEstadoPedido.addItem("FALSE");
             }
     
+    //metodo para mostrar los datos de la bd en la tabla
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel(){
@@ -84,6 +87,7 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
 
     }
     
+    //metodo para eliminar datos en la tabla 
     private void eliminar() {
 
         int row = vista.tblPedido.getSelectedRow();
@@ -100,6 +104,7 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         }
     }
     
+    //metodo para modificar datos en la bd
     private void modi() {
         try {
             pvo.getId_pedido();
@@ -115,6 +120,7 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         }
     }
 
+    //metodo para cargar datos en la tabla de la bd
     private void datos() {
         int row;
         row = vista.tblPedido.getSelectedRow();
@@ -126,7 +132,7 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
 
     }
     
-    
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menu.btncaja) {
@@ -139,7 +145,8 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
             this.modi();
         }
     }
-
+    
+    //esto hace que al momento de dar un click o varios en las columnas y filas de las tablas hagan una funcion
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 1) {
@@ -166,6 +173,7 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
     public void mouseExited(MouseEvent e) {
     }
 
+    //me lee la funcion mostrar para poder saber que tabla es la que filtrara el contenido 
     @Override
     public void keyTyped(KeyEvent e) {
         this.mostrar();
@@ -177,13 +185,15 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
+    
+    //con esta funcion hace que filre una columna en especifico
     @Override
     public void keyReleased(KeyEvent e) {
         tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 3));
         
     }
-
+    
+    //esta funicon hace que al momento que se habra la vista me muestre el contenido de mi tabla 
     @Override
     public void windowOpened(WindowEvent e) {
         this.mostrar();

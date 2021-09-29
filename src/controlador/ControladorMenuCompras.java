@@ -34,8 +34,8 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
     CompraVO cvo = new CompraVO();
     FrmMenu menu = new FrmMenu();
     FrmCompras vista = new FrmCompras();
-    DefaultTableModel m; //= new DefaultTableModel();
-    TableRowSorter tr;
+    DefaultTableModel m; //= new DefaultTableModel(); metodo para el uso de la tabla
+    TableRowSorter tr;//metodo para el filtro en la tabla
 
     public ControladorMenuCompras(CompraDAO cdao,CompraVO cvo,FrmMenu menu,FrmCompras vista) {
         this.cdao = cdao;
@@ -50,8 +50,9 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
         menu.menuCompras.addActionListener(this);
         vista.addWindowListener(this);
         vista.txtFiltro.addKeyListener(this);
+        menu.jmiComprasR.addActionListener(this);
     }   
-    
+    //metodo para ingresar datos a la bd
     private void insertarCompra() {
         try {
             cvo.setFecha_compra(vista.txtFecha.getText());
@@ -68,7 +69,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
         }
     }
-
+    //metodo para cargar los productos en el combobox
     public void cargarProducto(int buscar) {
         ProductoDAO pdao = new ProductoDAO();
         int index = 1;
@@ -83,7 +84,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
             index++;
         }
     }
-    
+    //metodo para mostrar los datos de la bd en la tabla
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel(){
@@ -110,7 +111,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
         vista.tblCompras.setModel(m);
         vista.tblCompras.setRowSorter(tr);
     }
-
+    //metodo para eliminar datos en la tabla 
     private void eliminar() {
 
         int row = vista.tblCompras.getSelectedRow();
@@ -126,7 +127,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
             }
         }
     }
-    
+    //metodo para modificar datos en la bd
     private void modi() {
         try {
             cvo.getId_compra();
@@ -144,7 +145,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
         }
     }
-
+    //metodo para cargar datos en la tabla de la bd
     private void datos() {
         int row;
         row = vista.tblCompras.getSelectedRow();
@@ -155,7 +156,17 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
         cvo.setFk_id_producto((int) vista.tblCompras.getValueAt(row, 4));
 
     }
-
+    //Reporte
+    private void reporte() {
+        try {
+            cdao.reporte();
+            cdao.jv.setDefaultCloseOperation(menu.DISPOSE_ON_CLOSE);
+            cdao.jv.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Reporte No generado");
+        }
+    }
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menu.menuCompras) {
@@ -170,8 +181,11 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
         if (e.getSource() == vista.jbtnCompraE) {
             this.modi();
         }
+        if (e.getSource() == menu.jmiComprasR) {
+            this.reporte();
+        }
     }
-
+    //esto hace que al momento de dar un click o varios en las columnas y filas de las tablas hagan una funcion
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 1) {
@@ -199,7 +213,7 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
     public void mouseExited(MouseEvent e) {
     
     }
-
+    //me lee la funcion mostrar para poder saber que tabla es la que filtrara el contenido 
     @Override
     public void keyTyped(KeyEvent e) {
          this.mostrar();
@@ -208,12 +222,12 @@ public class ControladorMenuCompras implements ActionListener, MouseListener,Key
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
+    //con esta funcion hace que filre una columna en especifico
     @Override
     public void keyReleased(KeyEvent e) {
         tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
     }
-
+    //esta funicon hace que al momento que se habra la vista me muestre el contenido de mi tabla 
     @Override
     public void windowOpened(WindowEvent e) {
         this.mostrar();

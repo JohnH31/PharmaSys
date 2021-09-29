@@ -14,8 +14,17 @@ public class ProductoVO {
     private String nombre_producto;
     private String tipo_producto;
     private String descripcion_producto;
+    private double presio_producto;
 
     public ProductoVO() {
+    }
+
+    public double getPresio_producto() {
+        return presio_producto;
+    }
+
+    public void setPresio_producto(double presio_producto) {
+        this.presio_producto = presio_producto;
     }
 
     public int getId_producto() {

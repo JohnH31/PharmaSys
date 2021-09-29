@@ -58,7 +58,7 @@ public class FrmFactura extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtIDFactura = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("PHARMASYS , S.A.");

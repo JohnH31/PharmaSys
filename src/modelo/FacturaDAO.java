@@ -7,6 +7,11 @@ package modelo;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -34,7 +39,7 @@ public class FacturaDAO implements ConsultasFacturaDAO{
         try {
             c.conectar();
             String consulta = "UPDATE tbl_factura SET fecha_factura= '"
-                    + f.getFecha_factura()+",fk_id_cliente = "+f.getFk_id_cliente()
+                    + f.getFecha_factura()+"',fk_id_cliente = "+f.getFk_id_cliente()
                     +" WHERE id_factura = "+ f.getId_factura()+ ";";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
@@ -76,4 +81,26 @@ public class FacturaDAO implements ConsultasFacturaDAO{
         }
         return info;
    }
+    public JasperViewer jv;
+        //metodo para el reporte
+    public void reporte(){
+        Conector c = new Conector();
+        try{
+        c.conectar();
+        //variable para encontrar el reporte
+        JasperReport reporte;
+        //Ruta del reporte
+        
+        String ruta = "C:\\Users\\John\\Documents\\NetBeansProjects\\FarmaciaPharmaSys\\src\\reportes\\ReporteFactura.jasper";
+        //asignacion de ruta
+        reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+        
+        JasperPrint jp = JasperFillManager.fillReport(reporte, null,c.con);
+        JasperViewer jv = new JasperViewer(jp,false);
+        this.jv = jv;
+                
+        }catch (Exception e) {
+            System.out.println("Mnesaje reporte"+e.getMessage());
+        }
+    }
 }

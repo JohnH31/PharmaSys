@@ -33,7 +33,7 @@ public class ControladorLogin implements ActionListener {
         vista.btnIngresar.addActionListener(this);
         vista.btnCancelar.addActionListener(this);
     }
-
+    //metodo para autenticar el usuario y la contraseña (Validaciones)
     public void verificar() {
         try {
             //System.out.println(uvo.getId_tipo_usuario_fk());
@@ -75,7 +75,7 @@ public class ControladorLogin implements ActionListener {
             System.out.println("error");
         }
     }
-
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.btnIngresar) {

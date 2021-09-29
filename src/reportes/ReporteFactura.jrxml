@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5aafd45a-680c-4dab-b7f2-0f3c68084c8d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT id_factura,fecha_factura,fk_id_cliente,cantidad_producto,total_factura,fk_id_producto,presio_factura FROM tbl_factura,tbl_detalle_factura;]]>
+	</queryString>
+	<field name="id_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_factura" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fk_id_cliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_producto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_factura" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fk_id_producto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="presio_factura" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="171" y="10" width="232" height="42" uuid="d03171d8-0acf-4429-9cef-e862d9fc9597"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[Reporte de Facturas]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="94f6706d-00c3-44e1-a52b-d677bc880eec"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="16" width="61" height="20" uuid="71db3e33-9c73-437e-bdfb-1e78e72ae501"/>
+				<text><![CDATA[id factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="16" width="97" height="20" uuid="79fa717a-7d48-4da6-9f78-948610322b8b"/>
+				<text><![CDATA[fecha factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="16" width="57" height="20" uuid="cf520240-8c6d-4e73-9367-6e35c68fa284"/>
+				<text><![CDATA[id cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="16" width="101" height="20" uuid="ef904a77-f6fa-4936-9951-aafe558e758d"/>
+				<text><![CDATA[cantidad producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="16" width="79" height="20" uuid="bb7b2ab4-051e-44e1-b058-f6adaf2bf9e5"/>
+				<text><![CDATA[total factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="16" width="79" height="20" uuid="9422a913-be78-47bc-a14c-830994837bfc"/>
+				<text><![CDATA[id producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="16" width="79" height="20" uuid="6767aa80-a8e6-464d-b50b-a2ed9d8a6c2f"/>
+				<text><![CDATA[presio factura]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="61" height="20" uuid="cfa64570-a4de-4a0a-80df-6225c8ee8a55"/>
+				<textFieldExpression><![CDATA[$F{id_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="0" width="97" height="20" uuid="71b00b7f-adff-4d50-813b-288acade9537"/>
+				<textFieldExpression><![CDATA[$F{fecha_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="57" height="20" uuid="95eeb397-783d-4bb2-aa47-ebac63b86465"/>
+				<textFieldExpression><![CDATA[$F{fk_id_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="0" width="101" height="20" uuid="00f8adaa-4044-4437-b971-6fff5bdb885f"/>
+				<textFieldExpression><![CDATA[$F{cantidad_producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="0" width="79" height="20" uuid="2b63e9be-7d03-4825-acf5-d03fe7659bae"/>
+				<textFieldExpression><![CDATA[$F{total_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="0" width="79" height="20" uuid="d5ca7dc1-0349-471d-b108-17e35c6eda30"/>
+				<textFieldExpression><![CDATA[$F{fk_id_producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="79" height="20" uuid="a34ae69e-bca2-4806-8a4e-606157efaea9"/>
+				<textFieldExpression><![CDATA[$F{presio_factura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="102" y="16" width="205" height="20" uuid="942419c1-e95e-4b2c-96b2-0a498e094c54"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Paginas "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="308" y="16" width="173" height="20" uuid="f8118633-9c31-419f-9836-3689a320e9ba"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

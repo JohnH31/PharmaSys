@@ -42,17 +42,15 @@ public class FrmMenu extends javax.swing.JFrame {
         menuProductos = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuCompras = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        menuVentas = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         menuPedidos = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jmiVentasR = new javax.swing.JMenuItem();
+        jmiFacturaR = new javax.swing.JMenuItem();
         jmiComprasR = new javax.swing.JMenuItem();
         jmiClientesR = new javax.swing.JMenuItem();
         jmiProveedoresR = new javax.swing.JMenuItem();
         jmiPedidosR = new javax.swing.JMenuItem();
-        jmiRiquisicionesR = new javax.swing.JMenuItem();
+        btnProductosR = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,14 +133,6 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu3);
 
-        jMenu5.setText("Ventas");
-        jMenu5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        menuVentas.setText("MenuVentas");
-        jMenu5.add(menuVentas);
-
-        jMenuBar2.add(jMenu5);
-
         jMenu8.setText("Pedidos");
         jMenu8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -159,8 +149,8 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu7.setText("Reportes");
         jMenu7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jmiVentasR.setText("Ventas");
-        jMenu7.add(jmiVentasR);
+        jmiFacturaR.setText("Facturas");
+        jMenu7.add(jmiFacturaR);
 
         jmiComprasR.setText("Compras");
         jmiComprasR.addActionListener(new java.awt.event.ActionListener() {
@@ -184,13 +174,13 @@ public class FrmMenu extends javax.swing.JFrame {
         jmiPedidosR.setText("Pedidos");
         jMenu7.add(jmiPedidosR);
 
-        jmiRiquisicionesR.setText("Requisiciones");
-        jmiRiquisicionesR.addActionListener(new java.awt.event.ActionListener() {
+        btnProductosR.setText("Productos");
+        btnProductosR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRiquisicionesRActionPerformed(evt);
+                btnProductosRActionPerformed(evt);
             }
         });
-        jMenu7.add(jmiRiquisicionesR);
+        jMenu7.add(btnProductosR);
 
         jMenuBar2.add(jMenu7);
 
@@ -230,10 +220,6 @@ public class FrmMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiClientesRActionPerformed
 
-    private void jmiRiquisicionesRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRiquisicionesRActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiRiquisicionesRActionPerformed
-
     private void jmiComprasRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiComprasRActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiComprasRActionPerformed
@@ -245,6 +231,10 @@ public class FrmMenu extends javax.swing.JFrame {
     private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFacturaActionPerformed
+
+    private void btnProductosRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProductosRActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,11 +274,11 @@ public class FrmMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem MenusCliente;
     public javax.swing.JMenuItem btnFactura;
+    public javax.swing.JMenuItem btnProductosR;
     public javax.swing.JMenuItem btncaja;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -297,16 +287,14 @@ public class FrmMenu extends javax.swing.JFrame {
     public javax.swing.JMenuItem jmiComprasR;
     public javax.swing.JMenuItem jmiCrear;
     public javax.swing.JMenuItem jmiEliminar;
+    public javax.swing.JMenuItem jmiFacturaR;
     public javax.swing.JMenuItem jmiPedidosR;
     public javax.swing.JMenuItem jmiProveedoresR;
-    public javax.swing.JMenuItem jmiRiquisicionesR;
     public javax.swing.JMenuItem jmiRoles;
-    public javax.swing.JMenuItem jmiVentasR;
     public javax.swing.JMenu menuCliente;
     public javax.swing.JMenuItem menuCompras;
     public javax.swing.JMenuItem menuPedidos;
     public javax.swing.JMenuItem menuProductos;
     public javax.swing.JMenuItem menuProveedores;
-    public javax.swing.JMenuItem menuVentas;
     // End of variables declaration//GEN-END:variables
 }

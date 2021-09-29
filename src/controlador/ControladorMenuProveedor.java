@@ -32,8 +32,8 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
     ProveedorVO pvo = new ProveedorVO();
     FrmMenu menu = new FrmMenu();
     FrmProveedor vista = new FrmProveedor();
-    DefaultTableModel m; //= new DefaultTableModel();
-    TableRowSorter tr;
+    DefaultTableModel m; //= new DefaultTableModel(); metodo para el uso de la tabla
+    TableRowSorter tr;//metodo para el filtro en la tabla
 
     public ControladorMenuProveedor(ProveedorDAO pdao, ProveedorVO pvo, FrmMenu menu, FrmProveedor vista) {
         this.pdao = pdao;
@@ -48,8 +48,9 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
         menu.menuProveedores.addActionListener(this);
         vista.addWindowListener(this);
         vista.txtFiltro.addKeyListener(this);
+        menu.jmiProveedoresR.addActionListener(this);
     }
-
+    //metodo para ingresar datos a la bd
     private void insertar() {
         try {
             pvo.setNombre_proveedor(vista.txtNombre.getText());
@@ -66,7 +67,7 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
         }
     }
-
+    //metodo para mostrar los datos de la bd en la tabla
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel(){
@@ -93,7 +94,7 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
         vista.tblProveedores.setModel(m);
         vista.tblProveedores.setRowSorter(tr);
     }
-
+    //metodo para eliminar datos en la tabla 
     private void eliminar() {
 
         int row = vista.tblProveedores.getSelectedRow();
@@ -109,7 +110,7 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
             }
         }
     }
-
+    //metodo para modificar datos en la bd
     private void modi() {
         try {
             pvo.getId_proveedor();
@@ -127,7 +128,7 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
         }
     }
-
+    //metodo para cargar datos en la tabla de la bd
     private void datos() {
         int row;
         row = vista.tblProveedores.getSelectedRow();
@@ -138,7 +139,17 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
         vista.txtCorreo.setText(String.valueOf(vista.tblProveedores.getValueAt(row, 4)));
 
     }
-
+    //Reporte
+    private void reporte() {
+        try {
+            pdao.reporte();
+            pdao.jv.setDefaultCloseOperation(menu.DISPOSE_ON_CLOSE);
+            pdao.jv.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Reporte No generado");
+        }
+    }
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menu.menuProveedores) {
@@ -152,10 +163,12 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
         }
         if (e.getSource() == vista.jtbnEditarP) {
             this.modi();
-   
+        }
+        if (e.getSource() == menu.jmiProveedoresR) {
+            this.reporte();
         }
     }
-
+    //esto hace que al momento de dar un click o varios en las columnas y filas de las tablas hagan una funcion
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 1) {
@@ -181,7 +194,7 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    //me lee la funcion mostrar para poder saber que tabla es la que filtrara el contenido 
     @Override
     public void keyTyped(KeyEvent e) {
         this.mostrar();
@@ -190,12 +203,12 @@ public class ControladorMenuProveedor implements ActionListener, MouseListener, 
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
+    //con esta funcion hace que filre una columna en especifico
     @Override
     public void keyReleased(KeyEvent e) {
         tr.setRowFilter(RowFilter.regexFilter("(?i)"+vista.txtFiltro.getText(), 1));
     }
-
+    //esta funicon hace que al momento que se habra la vista me muestre el contenido de mi tabla 
     @Override
     public void windowOpened(WindowEvent e) {
         this.mostrar();

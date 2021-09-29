@@ -35,7 +35,7 @@ public class ControladorEliminarUsuario implements ActionListener, MouseListener
         vista.tblEliminarUsuario.addMouseListener(this);
         menu.jmiEliminar.addActionListener(this);
     }
-    
+    //metodo para mostrar los datos de la bd en la tabla
     private void mostrar() {
         DefaultTableModel m = new DefaultTableModel();
         m.setColumnCount(0);
@@ -48,7 +48,7 @@ public class ControladorEliminarUsuario implements ActionListener, MouseListener
         }
         vista.tblEliminarUsuario.setModel(m);
     }
-
+    //metodo para eliminar datos en la tabla 
     private void eliminar() {
 
         int row = vista.tblEliminarUsuario.getSelectedRow();
@@ -64,7 +64,7 @@ public class ControladorEliminarUsuario implements ActionListener, MouseListener
             }
         }
     }
-    
+    //los botones a ultilizar y que metodos utilizaran
     @Override
     public void actionPerformed(ActionEvent e) {
          if (e.getSource() == menu.jmiEliminar) {
@@ -73,7 +73,7 @@ public class ControladorEliminarUsuario implements ActionListener, MouseListener
             this.mostrar();
         }
     }
-
+    //esto hace que al momento de dar un click o varios en las columnas y filas de las tablas hagan una funcion
     @Override
     public void mouseClicked(MouseEvent e) {
         this.eliminar();

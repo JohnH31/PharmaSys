@@ -56,6 +56,8 @@ public class FarmaciaPharmaSys {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        //Clases en las que se controla la union de la bd con la aplicacion de java
         UsuarioVO uvo = new UsuarioVO();
         UsuarioDAO udao = new UsuarioDAO();
         ProductoVO pvo = new ProductoVO();
@@ -85,6 +87,7 @@ public class FarmaciaPharmaSys {
         FrmAgregarUsuario au = new FrmAgregarUsuario();
         FrmEliminarUsuario eu = new FrmEliminarUsuario();
         
+        //Controladores para las vistas y las funciones, metodos con la aplicacion java y la bd        
         ControladorLogin clog = new ControladorLogin(uvo,udao,lo,me);
         ControladorIngresarUsuario ciu = new ControladorIngresarUsuario(uvo, udao, me, au);
         ControladorEliminarUsuario ceu = new ControladorEliminarUsuario(uvo, udao, me, eu);
@@ -97,9 +100,11 @@ public class FarmaciaPharmaSys {
         ControladorCaja ccaja = new ControladorCaja(pedao, pevo, me, caja);
         ControladorFactura cfac = new ControladorFactura(fdao, fvo, dfdao, dfvo, pedao, pevo, pdao, pvo, me, vista,ffyd);
         
-        me.setVisible(true);
-        me.setLocationRelativeTo(null);
+        //levanar la primera vista de la aplicacion 
+        lo.setVisible(true);
+        lo.setLocationRelativeTo(null);
         
+        //carga los datos de cada combobox
         ciu.cargarTipoUsuario(0);
         cmc.cargarProducto(0);
         cmped.cargarProducto(0);

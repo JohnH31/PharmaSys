@@ -12,10 +12,19 @@ package modelo;
 public class DetalleFacVO {
     private int id_detalle_factura;
     private int cantidad_producto;
-    private int total_factura;
+    private double total_factura;
     private int fk_id_producto;
+    private double presio_factura;
 
     public DetalleFacVO() {
+    }
+
+    public double getPresio_factura() {
+        return presio_factura;
+    }
+
+    public void setPresio_factura(double presio_factura) {
+        this.presio_factura = presio_factura;
     }
 
     public int getId_detalle_factura() {
@@ -34,11 +43,11 @@ public class DetalleFacVO {
         this.cantidad_producto = cantidad_producto;
     }
 
-    public int getTotal_factura() {
+    public double getTotal_factura() {
         return total_factura;
     }
 
-    public void setTotal_factura(int total_factura) {
+    public void setTotal_factura(double total_factura) {
         this.total_factura = total_factura;
     }
 
