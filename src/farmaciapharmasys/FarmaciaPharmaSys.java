@@ -108,9 +108,12 @@ public class FarmaciaPharmaSys {
         ciu.cargarTipoUsuario(0);
         cmc.cargarProducto(0);
         cmped.cargarProducto(0);
-        ccaja.cargarProducto();
+        cmped.cargarCliente(0);
+        cmped.cargarEstado(0);
+        ccaja.cargarEstado(0);
         cfac.cargarCliente(0);
         cfac.cargarProducto(0);
+        cep.cargarProveedores(0);
     }
     
 }

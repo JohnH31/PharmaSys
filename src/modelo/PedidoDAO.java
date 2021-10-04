@@ -24,8 +24,9 @@ public class PedidoDAO implements ConsultasPedidoDAO{
     Conector c = new Conector();
         try {
             c.conectar();
-            String consulta = "INSERT INTO tbl_pedido(fecha_pedido,descripcion_pedido,estado_pedido,fk_id_producto_pedido)VALUES('"
-                    +p.getFecha_pedido()+"','"+p.getDescripcion_pedido()+"',"+p.isEstado_pedido()+","+p.getFk_id_producto_pedido()+");";
+            String consulta = "INSERT INTO tbl_pedido (fecha_pedido, fk_id_cliente, fk_id_producto_pedido, descripcion_pedido, precio_pedido, cantidad_pedido, total_pedido, fk_id_estadop) VALUES('"
+                    +p.getFecha_pedido()+"',"+p.getFk_id_cliente()+","+p.getFk_id_producto_pedido()+",'"+p.getDescripcion_pedido()+"',"+p.getPrecio_pedido()+","
+                            +p.getCantidad_pedido()+","+p.getTotal_pedido()+","+p.getFk_id_estadop()+");";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Insertar " + e.getMessage());
@@ -39,8 +40,10 @@ public class PedidoDAO implements ConsultasPedidoDAO{
         try {
             c.conectar();
             String consulta = "UPDATE tbl_pedido SET fecha_pedido= '"
-                    + p.getFecha_pedido()+"',descripcion_pedido= '"+p.getDescripcion_pedido()
-                    +"',estado_pedido="+p.isEstado_pedido()+",fk_id_producto_pedido="+p.getFk_id_producto_pedido()
+                    + p.getFecha_pedido()+"',fk_id_cliente="+p.getFk_id_cliente()+",fk_id_producto_pedido="+p.getFk_id_producto_pedido()
+                    +",descripcion_pedido= '"+p.getDescripcion_pedido()+"',precio_pedido="+p.getPrecio_pedido()
+                    +",cantidad_pedido="+p.getCantidad_pedido()+",total_pedido="+p.getTotal_pedido()
+                    +",fk_id_estadop="+p.getFk_id_estadop()
                     +" WHERE id_pedido = "+ p.getId_pedido()+ ";";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
@@ -73,9 +76,13 @@ public class PedidoDAO implements ConsultasPedidoDAO{
                 PedidoVO pvo = new PedidoVO();
                 pvo.setId_pedido(rs.getInt(1));
                 pvo.setFecha_pedido(rs.getString(2));
-                pvo.setDescripcion_pedido(rs.getString(3));
-                pvo.setEstado_pedido(rs.getBoolean(4));
-                pvo.setFk_id_producto_pedido(rs.getInt(5));
+                pvo.setFk_id_cliente(rs.getInt(3));
+                pvo.setFk_id_producto_pedido(rs.getInt(4));
+                pvo.setDescripcion_pedido(rs.getString(5));
+                pvo.setPrecio_pedido(rs.getDouble(6));
+                pvo.setCantidad_pedido(rs.getInt(7));
+                pvo.setTotal_pedido(rs.getDouble(8));
+                pvo.setFk_id_estadop(rs.getInt(9));
                 info.add(pvo);
             }
             c.desconectar();
@@ -92,7 +99,7 @@ public class PedidoDAO implements ConsultasPedidoDAO{
         ArrayList<ProductoVO> infos = new ArrayList<>();
         try {
             c.conectar();
-            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,presio_producto,fecha_pedido,descripcion_pedido,estado_pedido,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
+            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,precio_producto,fecha_pedido,descripcion_pedido,fk_id_estadop,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
             ResultSet rs = c.consulta_datos(consulta);
             while(rs.next()){
                 PedidoVO pvo = new PedidoVO();
@@ -100,10 +107,10 @@ public class PedidoDAO implements ConsultasPedidoDAO{
                 dvo.setId_producto(rs.getInt(1));
                 dvo.setNombre_producto(rs.getString(2));
                 dvo.setTipo_producto(rs.getString(3));
-                dvo.setPresio_producto(rs.getDouble(4));
+                dvo.setPrecio_producto(rs.getDouble(4));
                 pvo.setFecha_pedido(rs.getString(5));
                 pvo.setDescripcion_pedido(rs.getString(6));
-                pvo.setEstado_pedido(rs.getBoolean(7));
+                pvo.setFk_id_estadop(rs.getInt(7));
                 pvo.setFk_id_producto_pedido(rs.getInt(8));
                 info.add(pvo);
                 infos.add(dvo);

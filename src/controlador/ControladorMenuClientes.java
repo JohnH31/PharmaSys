@@ -56,10 +56,14 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
             cvo.setNombre_cliente(vista.txtNombre.getText());
             cvo.setApellido_cliente(vista.txtApellido.getText());
             cvo.setDireccion_cliente(vista.txtDireccion.getText());
+            cvo.setCorreo_cliente(vista.txtCorreo.getText());
+            cvo.setClave_cliente(vista.txtClave.getText());
             cdao.insertar(cvo);
             vista.txtNombre.setText("");
             vista.txtApellido.setText("");
             vista.txtDireccion.setText("");
+            vista.txtCorreo.setText("");
+            vista.txtClave.setText("");
             JOptionPane.showMessageDialog(null, "Registro Ingresado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
@@ -72,7 +76,7 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         m = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column==4) {
+                if (column==6) {
                     return true;
                 }else{
                     return false;
@@ -86,8 +90,10 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         m.addColumn("Nombre");
         m.addColumn("Apellido");
         m.addColumn("Direccion");
+        m.addColumn("Correo");
+        m.addColumn("Clave");
         for (ClienteVO cvo : cdao.consultarTabla()) {
-            m.addRow(new Object[]{cvo.getId_cliente(),cvo.getNombre_cliente(),cvo.getApellido_cliente(),cvo.getDireccion_cliente()});
+            m.addRow(new Object[]{cvo.getId_cliente(),cvo.getNombre_cliente(),cvo.getApellido_cliente(),cvo.getDireccion_cliente(),cvo.getCorreo_cliente(),cvo.getClave_cliente()});
         }
         vista.tblClientes.setModel(m);
         vista.tblClientes.setRowSorter(tr);
@@ -115,10 +121,14 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
               cvo.setNombre_cliente(vista.txtNombre.getText());
               cvo.setApellido_cliente(vista.txtApellido.getText());
               cvo.setDireccion_cliente(vista.txtDireccion.getText());
+              cvo.setCorreo_cliente(vista.txtCorreo.getText());
+              cvo.setClave_cliente(vista.txtClave.getText());
               cdao.actualizar(cvo);
               vista.txtNombre.setText("");
               vista.txtApellido.setText("");
               vista.txtDireccion.setText("");
+              vista.txtCorreo.setText("");
+              vista.txtClave.setText("");
             JOptionPane.showMessageDialog(null, "Registro Modificado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
@@ -132,7 +142,8 @@ public class ControladorMenuClientes implements ActionListener, MouseListener, K
         vista.txtNombre.setText(String.valueOf(vista.tblClientes.getValueAt(row, 1)));
         vista.txtApellido.setText(String.valueOf(vista.tblClientes.getValueAt(row, 2)));
         vista.txtDireccion.setText(String.valueOf(vista.tblClientes.getValueAt(row, 3)));
-        
+        vista.txtCorreo.setText(String.valueOf(vista.tblClientes.getValueAt(row, 4)));
+        vista.txtClave.setText(String.valueOf(vista.tblClientes.getValueAt(row, 5)));
     }
     //Reporte
     private void reporte() {

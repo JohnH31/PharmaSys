@@ -17,6 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.ClienteDAO;
+import modelo.ClienteVO;
+import modelo.EstadoPedidoDAO;
+import modelo.EstadoPedidoVO;
 import modelo.PedidoDAO;
 import modelo.PedidoVO;
 import modelo.ProductoDAO;
@@ -56,17 +60,57 @@ public class ControladorMenuPedido implements ActionListener, MouseListener,KeyL
     private void insertar() {
         try {
             pvo.setFecha_pedido(vista.txtFecha.getText());
-            pvo.setDescripcion_pedido(vista.txtDescripcion.getText());
-            pvo.setEstado_pedido(Boolean.parseBoolean(vista.cbxEstadoPedido.getSelectedItem().toString()));
+            pvo.setFk_id_cliente(Integer.parseInt(vista.cbxIDCliente.getSelectedItem().toString()));
             pvo.setFk_id_producto_pedido(Integer.parseInt(vista.cbxIdProducto1.getSelectedItem().toString()));
+            pvo.setDescripcion_pedido(vista.txtDescripcion.getText());
+            pvo.setPrecio_pedido(Double.parseDouble(vista.txtPresioPedido.getText()));
+            pvo.setCantidad_pedido(Integer.parseInt(vista.txtCantidadPedido.getText()));
+            double total = Integer.parseInt(vista.txtCantidadPedido.getText()) * Double.parseDouble(vista.txtPresioPedido.getText());
+            pvo.setTotal_pedido(total);
+            pvo.setFk_id_estadop(Integer.parseInt(vista.cbxEstadoPedido.getSelectedItem().toString()));
             pdao.insertar(pvo);
             vista.txtFecha.setText("");
-            vista.txtDescripcion.setText("");
-            vista.cbxEstadoPedido.setSelectedIndex(0);
+            vista.cbxIDCliente.setSelectedIndex(0);
             vista.cbxIdProducto1.setSelectedIndex(0);
+            vista.txtDescripcion.setText("");
+            vista.txtPresioPedido.setText("");
+            vista.txtCantidadPedido.setText("");
+            vista.txtTotalPedido.setText("");
+            vista.cbxEstadoPedido.setSelectedIndex(0);
+            
             JOptionPane.showMessageDialog(null, "Registro Ingresado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para guardar registro!");
+        }
+    }
+    //metodo para cargar los Cliente en el combobox
+    public void cargarCliente(int buscar) {
+        ClienteDAO pdao = new ClienteDAO();
+        int index = 1;
+        vista.cbxIDCliente.removeAllItems();
+        vista.cbxIDCliente.addItem("Seleccione Estado");
+        for (ClienteVO pvo : pdao.consultarTabla()) {
+            vista.cbxIDCliente.addItem(String.valueOf(pvo.getId_cliente()));
+            //vista.cbxLibroAutor.addItem(lvo.getNombre_libro());
+            if (pvo.getId_cliente() == buscar) {
+                vista.cbxIDCliente.setSelectedIndex(index);
+            }
+            index++;
+        }
+    }
+     //metodo para cargar los estado en el combobox
+    public void cargarEstado(int buscar) {
+        EstadoPedidoDAO pdao = new EstadoPedidoDAO();
+        int index = 1;
+        vista.cbxEstadoPedido.removeAllItems();
+        vista.cbxEstadoPedido.addItem("Seleccione Estado");
+        for (EstadoPedidoVO pvo : pdao.consultarTabla()) {
+            vista.cbxEstadoPedido.addItem(String.valueOf(pvo.getId_estado_pedido()));
+            //vista.cbxLibroAutor.addItem(lvo.getNombre_libro());
+            if (pvo.getId_estado_pedido() == buscar) {
+                vista.cbxEstadoPedido.setSelectedIndex(index);
+            }
+            index++;
         }
     }
     //metodo para cargar los productos en el combobox
@@ -74,11 +118,7 @@ public class ControladorMenuPedido implements ActionListener, MouseListener,KeyL
         ProductoDAO pdao = new ProductoDAO();
         int index = 1;
         vista.cbxIdProducto1.removeAllItems();
-        vista.cbxEstadoPedido.removeAllItems();
         vista.cbxIdProducto1.addItem("Seleccione Producto");
-        vista.cbxEstadoPedido.addItem("Seleccione Estado");
-        vista.cbxEstadoPedido.addItem("TRUE");
-        vista.cbxEstadoPedido.addItem("FALSE");
         for (ProductoVO pvo : pdao.consultarTabla()) {
             vista.cbxIdProducto1.addItem(String.valueOf(pvo.getId_producto()));
             //vista.cbxLibroAutor.addItem(lvo.getNombre_libro());
@@ -94,7 +134,7 @@ public class ControladorMenuPedido implements ActionListener, MouseListener,KeyL
         m = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column==5) {
+                if (column==9) {
                     return true;
                 }else{
                     return false;
@@ -106,11 +146,15 @@ public class ControladorMenuPedido implements ActionListener, MouseListener,KeyL
         m.setColumnCount(0);
         m.addColumn("Id");
         m.addColumn("Fecha");
-        m.addColumn("Descripcion");
-        m.addColumn("Estado Pedido");
+        m.addColumn("IdCliente");
         m.addColumn("IdProducto");
+        m.addColumn("Descripcion");
+        m.addColumn("Precio");
+        m.addColumn("Cantidad");
+        m.addColumn("Total");
+        m.addColumn("Estado Pedido");
         for (PedidoVO pvo : pdao.consultarTabla()) {
-            m.addRow(new Object[]{pvo.getId_pedido(),pvo.getFecha_pedido(),pvo.getDescripcion_pedido(),pvo.isEstado_pedido(),pvo.getFk_id_producto_pedido()});
+            m.addRow(new Object[]{pvo.getId_pedido(),pvo.getFecha_pedido(),pvo.getFk_id_cliente(),pvo.getFk_id_producto_pedido(),pvo.getDescripcion_pedido(),pvo.getPrecio_pedido(),pvo.getCantidad_pedido(),pvo.getTotal_pedido(),pvo.getFk_id_estadop()});
         }
         vista.tblPedido.setModel(m);
         vista.tblPedido.setRowSorter(tr);
@@ -136,14 +180,23 @@ public class ControladorMenuPedido implements ActionListener, MouseListener,KeyL
         try {
             pvo.getId_pedido();
             pvo.setFecha_pedido(vista.txtFecha.getText());
-            pvo.setDescripcion_pedido(vista.txtDescripcion.getText());
-            pvo.setEstado_pedido(Boolean.parseBoolean(vista.cbxEstadoPedido.getSelectedItem().toString()));
+            pvo.setFk_id_cliente(Integer.parseInt(vista.cbxIDCliente.getSelectedItem().toString()));
             pvo.setFk_id_producto_pedido(Integer.parseInt(vista.cbxIdProducto1.getSelectedItem().toString()));
+            pvo.setDescripcion_pedido(vista.txtDescripcion.getText());
+            pvo.setPrecio_pedido(Double.parseDouble(vista.txtPresioPedido.getText()));
+            pvo.setCantidad_pedido(Integer.parseInt(vista.txtCantidadPedido.getText()));
+            double total = Integer.parseInt(vista.txtCantidadPedido.getText()) * Double.parseDouble(vista.txtPresioPedido.getText());
+            pvo.setTotal_pedido(total);
+            pvo.setFk_id_estadop(Integer.parseInt(vista.cbxEstadoPedido.getSelectedItem().toString()));
             pdao.actualizar(pvo);
             vista.txtFecha.setText("");
-            vista.txtDescripcion.setText("");
-            vista.cbxEstadoPedido.setSelectedIndex(0);
+            vista.cbxIDCliente.setSelectedIndex(0);
             vista.cbxIdProducto1.setSelectedIndex(0);
+            vista.txtDescripcion.setText("");
+            vista.txtPresioPedido.setText("");
+            vista.txtCantidadPedido.setText("");
+            vista.txtTotalPedido.setText("");
+            vista.cbxEstadoPedido.setSelectedIndex(0);
             JOptionPane.showMessageDialog(null, "Registro Modificado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debe ingresar Datos para Modificar registro!");
@@ -155,9 +208,14 @@ public class ControladorMenuPedido implements ActionListener, MouseListener,KeyL
         row = vista.tblPedido.getSelectedRow();
         pvo.setId_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 0).toString()));
         vista.txtFecha.setText(String.valueOf(vista.tblPedido.getValueAt(row, 1)));
-        vista.txtDescripcion.setText(String.valueOf(vista.tblPedido.getValueAt(row, 2)));
-        pvo.setEstado_pedido((boolean) vista.tblPedido.getValueAt(row, 3));
-        pvo.setFk_id_producto_pedido((int) vista.tblPedido.getValueAt(row, 4));
+        pvo.setFk_id_cliente((int) vista.tblPedido.getValueAt(row, 2));
+        pvo.setFk_id_producto_pedido((int) vista.tblPedido.getValueAt(row, 3));
+        vista.txtDescripcion.setText(String.valueOf(vista.tblPedido.getValueAt(row, 4)));
+        vista.txtPresioPedido.setText(String.valueOf(vista.tblPedido.getValueAt(row, 5)));
+        vista.txtCantidadPedido.setText(String.valueOf(vista.tblPedido.getValueAt(row, 6)));
+        vista.txtTotalPedido.setText(String.valueOf(vista.tblPedido.getValueAt(row, 7)));
+        pvo.setFk_id_estadop((int) vista.tblPedido.getValueAt(row, 8));
+       
 
     }
     //Reporte

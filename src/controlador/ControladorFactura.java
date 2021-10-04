@@ -154,7 +154,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m.addColumn("Tipo");
         m.addColumn("Presio");
         for (ProductoVO prvo : prdao.consultarJoin()) {
-            m.addRow(new Object[]{prvo.getId_producto(), prvo.getNombre_producto(), prvo.getTipo_producto(),prvo.getPresio_producto()});
+            m.addRow(new Object[]{prvo.getId_producto(), prvo.getNombre_producto(), prvo.getTipo_producto(),prvo.getPrecio_producto()});
         }
         vista.tblFactura.setModel(m);
         vista.tblFactura.setRowSorter(tr);
@@ -180,7 +180,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m.addColumn("Estado Pedido");
         m.addColumn("id Producto");
         for (PedidoVO pvo : pdao.consultarJoin()) {
-            m.addRow(new Object[]{pvo.getFecha_pedido(), pvo.getDescripcion_pedido(), pvo.isEstado_pedido(), pvo.getFk_id_producto_pedido()});
+            m.addRow(new Object[]{pvo.getFecha_pedido(), pvo.getDescripcion_pedido(), pvo.getFk_id_estadop(), pvo.getFk_id_producto_pedido()});
         }
         vista.tblFactura1.setModel(m);
         vista.tblFactura1.setRowSorter(tr1);

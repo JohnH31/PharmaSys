@@ -24,9 +24,9 @@ public class ClienteDAO implements ConsultasClienteDAO{
     Conector d = new Conector();
         try {
             d.conectar();
-            String consulta = "INSERT INTO tbl_cliente(nombre_cliente, apellido_cliente, direccion_cliente)VALUES ('"
+            String consulta = "INSERT INTO tbl_cliente_android(nombre_cliente, apellido_cliente, direccion_cliente,correo_cliente,clave_cliente)VALUES ('"
                     +c.getNombre_cliente()+"','"+c.getApellido_cliente()+"','"
-                    +c.getDireccion_cliente()+"');";
+                    +c.getDireccion_cliente()+"','"+c.getCorreo_cliente()+"','"+c.getClave_cliente()+"');";
             d.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Insertar " + e.getMessage());
@@ -39,9 +39,10 @@ public class ClienteDAO implements ConsultasClienteDAO{
       Conector d = new Conector();
         try {
             d.conectar();
-            String consulta = "UPDATE tbl_cliente SET nombre_cliente= '"
+            String consulta = "UPDATE tbl_cliente_android SET nombre_cliente= '"
                     + c.getNombre_cliente()+"',apellido_cliente= '"+c.getApellido_cliente()
-                    +"',direccion_cliente= '"+c.getDireccion_cliente()+"' WHERE id_cliente = "+ c.getId_cliente()+ ";";
+                    +"',direccion_cliente= '"+c.getDireccion_cliente()+"',correo_cliente='"+c.getCorreo_cliente()
+                    +"',clave_cliente='"+c.getClave_cliente()+"' WHERE id_cliente = "+ c.getId_cliente()+ ";";
             d.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Actualizar " + e.getMessage());
@@ -53,7 +54,7 @@ public class ClienteDAO implements ConsultasClienteDAO{
       Conector d = new Conector();
         try {
             d.conectar();
-            String consulta = "DELETE FROM tbl_cliente WHERE id_cliente =" + c.getId_cliente()+";";
+            String consulta = "DELETE FROM tbl_cliente_android WHERE id_cliente =" + c.getId_cliente()+";";
             d.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Eliminar " + e.getMessage());
@@ -67,7 +68,7 @@ public class ClienteDAO implements ConsultasClienteDAO{
         ArrayList<ClienteVO> info = new ArrayList<>();
         try {
             c.conectar();
-            String consulta = "SELECT * FROM tbl_cliente;";
+            String consulta = "SELECT * FROM tbl_cliente_android;";
             ResultSet rs = c.consulta_datos(consulta);
             while (rs.next()) {
                 ClienteVO cvo = new ClienteVO();
@@ -75,6 +76,8 @@ public class ClienteDAO implements ConsultasClienteDAO{
                 cvo.setNombre_cliente(rs.getString(2));
                 cvo.setApellido_cliente(rs.getString(3));
                 cvo.setDireccion_cliente(rs.getString(4));
+                cvo.setCorreo_cliente(rs.getString(5));
+                cvo.setClave_cliente(rs.getString(6));
                 info.add(cvo);
             }
             c.desconectar();

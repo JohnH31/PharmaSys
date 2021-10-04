@@ -14,18 +14,28 @@ public class ProductoVO {
     private String nombre_producto;
     private String tipo_producto;
     private String descripcion_producto;
-    private double presio_producto;
+    private int fk_id_proveedor;
+    private double precio_producto;
 
     public ProductoVO() {
     }
 
-    public double getPresio_producto() {
-        return presio_producto;
+    public int getFk_id_proveedor() {
+        return fk_id_proveedor;
     }
 
-    public void setPresio_producto(double presio_producto) {
-        this.presio_producto = presio_producto;
+    public void setFk_id_proveedor(int fk_id_proveedor) {
+        this.fk_id_proveedor = fk_id_proveedor;
     }
+
+    public double getPrecio_producto() {
+        return precio_producto;
+    }
+
+    public void setPrecio_producto(double precio_producto) {
+        this.precio_producto = precio_producto;
+    }
+    
 
     public int getId_producto() {
         return id_producto;

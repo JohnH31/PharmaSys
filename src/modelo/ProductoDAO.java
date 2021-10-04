@@ -24,8 +24,8 @@ public class ProductoDAO implements ConsultaProductoDAO{
     Conector c = new Conector();
         try {
             c.conectar();
-            String consulta = "INSERT INTO tbl_producto(nombre_producto,tipo_producto,descripcion_producto,presio_producto)VALUES('"
-                    +p.getNombre_producto()+"','"+p.getTipo_producto()+"','"+p.getDescripcion_producto()+"',"+p.getPresio_producto()+");";
+            String consulta = "INSERT INTO tbl_producto(nombre_producto,tipo_producto,descripcion_producto,fk_id_proveedor,precio_producto)VALUES('"
+                    +p.getNombre_producto()+"','"+p.getTipo_producto()+"','"+p.getDescripcion_producto()+"',"+p.getFk_id_proveedor()+","+p.getPrecio_producto()+");";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Insertar " + e.getMessage());
@@ -40,7 +40,8 @@ public class ProductoDAO implements ConsultaProductoDAO{
             c.conectar();
             String consulta = "UPDATE tbl_producto SET nombre_producto= '"
                     + p.getNombre_producto()+"',tipo_producto= '"+p.getTipo_producto()
-                    +"',descripcion_producto='"+p.getDescripcion_producto()+",presio_producto= "+p.getPresio_producto()
+                    +"',descripcion_producto='"+p.getDescripcion_producto()+",fk_id_proveedor="+p.getFk_id_proveedor()+
+                    ",precio_producto= "+p.getPrecio_producto()
                     +"' WHERE id_producto = "+ p.getId_producto()+ ";";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
@@ -75,7 +76,8 @@ public class ProductoDAO implements ConsultaProductoDAO{
                 pvo.setNombre_producto(rs.getString(2));
                 pvo.setTipo_producto(rs.getString(3));
                 pvo.setDescripcion_producto(rs.getString(4));
-                pvo.setPresio_producto(rs.getDouble(5));
+                pvo.setFk_id_proveedor(rs.getInt(5));
+                pvo.setPrecio_producto(rs.getDouble(6));
                 info.add(pvo);
             }
             c.desconectar();
@@ -92,7 +94,7 @@ public class ProductoDAO implements ConsultaProductoDAO{
         ArrayList<PedidoVO> infos = new ArrayList<>();
         try {
             c.conectar();
-            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,presio_producto,fecha_pedido,descripcion_pedido,estado_pedido,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
+            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,precio_producto,fecha_pedido,descripcion_pedido,fk_id_estadop,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
             ResultSet rs = c.consulta_datos(consulta);
             while(rs.next()){
                 PedidoVO pvo = new PedidoVO();
@@ -100,10 +102,10 @@ public class ProductoDAO implements ConsultaProductoDAO{
                 dvo.setId_producto(rs.getInt(1));
                 dvo.setNombre_producto(rs.getString(2));
                 dvo.setTipo_producto(rs.getString(3));
-                dvo.setPresio_producto(rs.getDouble(4));
+                dvo.setPrecio_producto(rs.getDouble(4));
                 pvo.setFecha_pedido(rs.getString(5));
                 pvo.setDescripcion_pedido(rs.getString(6));
-                pvo.setEstado_pedido(rs.getBoolean(7));
+                pvo.setFk_id_estadop(rs.getInt(7));
                 pvo.setFk_id_producto_pedido(rs.getInt(8));
                 info.add(dvo);
                 infos.add(pvo);

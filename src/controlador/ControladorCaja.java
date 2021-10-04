@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.EstadoPedidoDAO;
+import modelo.EstadoPedidoVO;
 import modelo.PedidoDAO;
 import modelo.PedidoVO;
 import vista.FrmCaja;
@@ -50,21 +52,29 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         
     }
     
-    //metodo para cargar los productos en el combobox
-    public void cargarProducto() {
+     //metodo para cargar los estado en el combobox
+    public void cargarEstado(int buscar) {
+        EstadoPedidoDAO pdao = new EstadoPedidoDAO();
+        int index = 1;
         vista.cbxEstadoPedido.removeAllItems();
         vista.cbxEstadoPedido.addItem("Seleccione Estado");
-        vista.cbxEstadoPedido.addItem("TRUE");
-        vista.cbxEstadoPedido.addItem("FALSE");
+        for (EstadoPedidoVO pvo : pdao.consultarTabla()) {
+            vista.cbxEstadoPedido.addItem(String.valueOf(pvo.getId_estado_pedido()));
+            //vista.cbxLibroAutor.addItem(lvo.getNombre_libro());
+            if (pvo.getId_estado_pedido() == buscar) {
+                vista.cbxEstadoPedido.setSelectedIndex(index);
             }
+            index++;
+        }
+    }
     
-    //metodo para mostrar los datos de la bd en la tabla
+   //metodo para mostrar los datos de la bd en la tabla
     private void mostrar() {
         //DefaultTableModel m = new DefaultTableModel();
         m = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column==5) {
+                if (column==9) {
                     return true;
                 }else{
                     return false;
@@ -76,15 +86,18 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         m.setColumnCount(0);
         m.addColumn("Id");
         m.addColumn("Fecha");
-        m.addColumn("Descripcion");
-        m.addColumn("Estado Pedido");
+        m.addColumn("IdCliente");
         m.addColumn("IdProducto");
+        m.addColumn("Descripcion");
+        m.addColumn("Precio");
+        m.addColumn("Cantidad");
+        m.addColumn("Total");
+        m.addColumn("Estado Pedido");
         for (PedidoVO pvo : pdao.consultarTabla()) {
-            m.addRow(new Object[]{pvo.getId_pedido(),pvo.getFecha_pedido(),pvo.getDescripcion_pedido(),pvo.isEstado_pedido(),pvo.getFk_id_producto_pedido()});
+            m.addRow(new Object[]{pvo.getId_pedido(),pvo.getFecha_pedido(),pvo.getFk_id_cliente(),pvo.getFk_id_producto_pedido(),pvo.getDescripcion_pedido(),pvo.getPrecio_pedido(),pvo.getCantidad_pedido(),pvo.getTotal_pedido(),pvo.getFk_id_estadop()});
         }
         vista.tblPedido.setModel(m);
         vista.tblPedido.setRowSorter(tr);
-
     }
     
     //metodo para eliminar datos en la tabla 
@@ -109,9 +122,13 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         try {
             pvo.getId_pedido();
             pvo.getFecha_pedido();
-            pvo.getDescripcion_pedido();
-            pvo.setEstado_pedido(Boolean.parseBoolean(vista.cbxEstadoPedido.getSelectedItem().toString()));
+            pvo.getFk_id_cliente();
             pvo.getFk_id_producto_pedido();
+            pvo.getDescripcion_pedido();
+            pvo.getPrecio_pedido();
+            pvo.getCantidad_pedido();
+            pvo.getTotal_pedido();
+            pvo.setFk_id_estadop(Integer.parseInt(vista.cbxEstadoPedido.getSelectedItem().toString()));
             pdao.actualizar(pvo);
             vista.cbxEstadoPedido.setSelectedIndex(0);
             JOptionPane.showMessageDialog(null, "Registro Modificado");
@@ -126,9 +143,13 @@ public class ControladorCaja implements ActionListener, MouseListener, KeyListen
         row = vista.tblPedido.getSelectedRow();
         pvo.setId_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 0).toString()));
         pvo.setFecha_pedido(String.valueOf(vista.tblPedido.getValueAt(row, 1)));
-        pvo.setDescripcion_pedido(String.valueOf(vista.tblPedido.getValueAt(row, 2)));
-        pvo.setEstado_pedido((boolean) vista.tblPedido.getValueAt(row, 3));
-        pvo.setFk_id_producto_pedido((int) vista.tblPedido.getValueAt(row, 4));
+        pvo.setFk_id_cliente(Integer.parseInt(vista.tblPedido.getValueAt(row, 2).toString()));
+        pvo.setFk_id_producto_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 3).toString()));
+        pvo.setDescripcion_pedido(String.valueOf(vista.tblPedido.getValueAt(row, 4)));
+        pvo.setPrecio_pedido(Double.parseDouble(vista.tblPedido.getValueAt(row, 5).toString()));
+        pvo.setCantidad_pedido(Integer.parseInt(vista.tblPedido.getValueAt(row, 6).toString()));
+        pvo.setTotal_pedido(Double.parseDouble(vista.tblPedido.getValueAt(row, 7).toString()));
+        pvo.setFk_id_estadop(Integer.parseInt(vista.tblPedido.getValueAt(row, 8).toString()));
 
     }
     

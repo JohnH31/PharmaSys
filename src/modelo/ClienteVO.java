@@ -14,9 +14,29 @@ public class ClienteVO {
     private String nombre_cliente;
     private String apellido_cliente;
     private String direccion_cliente;
+    private String correo_cliente;
+    private String clave_cliente;
 
     public ClienteVO() {
     }
+
+    public String getCorreo_cliente() {
+        return correo_cliente;
+    }
+
+    public void setCorreo_cliente(String correo_cliente) {
+        this.correo_cliente = correo_cliente;
+    }
+
+    public String getClave_cliente() {
+        return clave_cliente;
+    }
+
+    public void setClave_cliente(String clave_cliente) {
+        this.clave_cliente = clave_cliente;
+    }
+    
+    
 
     public int getId_cliente() {
         return id_cliente;

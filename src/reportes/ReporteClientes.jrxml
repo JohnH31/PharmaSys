@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT id_cliente,nombre_cliente,apellido_cliente,direccion_cliente FROM tbl_cliente;]]>
+		<![CDATA[SELECT id_cliente,nombre_cliente,apellido_cliente,direccion_cliente,correo_cliente,clave_cliente FROM tbl_cliente_android;]]>
 	</queryString>
 	<field name="id_cliente" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -16,6 +16,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="direccion_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correo_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="clave_cliente" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -42,104 +48,152 @@
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="82" y="41" width="100" height="20" uuid="beb5e41a-cda7-4f23-b751-e8c357bdf8bf"/>
+				<reportElement x="0" y="41" width="92" height="20" uuid="00bde5c4-1a7e-4e95-9e64-f931acf30d32"/>
 				<box>
-					<pen lineWidth="3.25" lineStyle="Solid"/>
-					<topPen lineWidth="3.25" lineStyle="Solid"/>
-					<leftPen lineWidth="3.25" lineStyle="Solid"/>
-					<bottomPen lineWidth="3.25" lineStyle="Solid"/>
-					<rightPen lineWidth="3.25" lineStyle="Solid"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Id cliente]]></text>
+				<text><![CDATA[id_cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="182" y="41" width="100" height="20" uuid="567137d6-1e10-4ca6-8ccd-368067f84923"/>
+				<reportElement x="92" y="41" width="92" height="20" uuid="bb3f4a7e-1cf4-4026-b820-c27aa7c6f11b"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[nombre cliente]]></text>
+				<text><![CDATA[nombre_cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="282" y="41" width="100" height="20" uuid="34f3805e-c960-4557-bbd2-fe6057b6f8c9"/>
+				<reportElement x="184" y="41" width="92" height="20" uuid="9a4a285a-9f9b-45cb-9452-077750f8b0e5"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[apellido cliente]]></text>
+				<text><![CDATA[apellido_cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="382" y="41" width="100" height="20" uuid="8b143dd2-015f-43dc-b287-87a633056164"/>
+				<reportElement x="276" y="41" width="92" height="20" uuid="51a31118-293b-474c-9c94-2870e9db4801"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[direccion_cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="41" width="92" height="20" uuid="46873d29-3fed-46ec-bd5e-a77a2782e30f"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[correo_cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="41" width="92" height="20" uuid="7edb08fc-84d7-4e4c-9570-4ce8fdf36018"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[clave_cliente]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="82" y="0" width="100" height="20" uuid="a4b9ba99-0767-47d2-9391-57fc58667dae"/>
+				<reportElement x="0" y="0" width="92" height="20" uuid="908603d6-183b-4159-898c-970392a41a97"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id_cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="182" y="0" width="100" height="20" uuid="fe7c12f6-85f5-4492-a8fd-d40140a0af94"/>
+				<reportElement x="92" y="0" width="92" height="20" uuid="0587bf24-6a65-46b4-be7c-a89c491f2a72"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombre_cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="282" y="0" width="100" height="20" uuid="3b315970-0caf-4eec-ad8b-e7f58a497b29"/>
+				<reportElement x="184" y="0" width="92" height="20" uuid="2aedc0c2-bbf7-4914-91f5-7d4197190443"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{apellido_cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="382" y="0" width="100" height="20" uuid="869690bd-184d-49df-87e7-56bba20b3ad4"/>
+				<reportElement x="276" y="0" width="92" height="20" uuid="8d9619dd-78da-40ab-a211-d7d3aca2719e"/>
 				<box>
-					<pen lineWidth="3.0"/>
-					<topPen lineWidth="3.0"/>
-					<leftPen lineWidth="3.0"/>
-					<bottomPen lineWidth="3.0"/>
-					<rightPen lineWidth="3.0"/>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{direccion_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="92" height="20" uuid="6f64976e-7414-44a8-9ce8-71d9f8842ac2"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{correo_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="92" height="20" uuid="9cac746f-60de-45da-a4f5-937d2e22a258"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clave_cliente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.ProductoDAO;
 import modelo.ProductoVO;
+import modelo.ProveedorDAO;
+import modelo.ProveedorVO;
 import modelo.UsuarioVO;
 import vista.FrmMenu;
 import vista.FrmProductos;
@@ -54,7 +56,7 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         m = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column==4) {
+                if (column==5) {
                     return true;
                 }else{
                     return false;
@@ -68,9 +70,10 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         m.addColumn("Nombre");
         m.addColumn("Tipo");
         m.addColumn("Descripcion");
+        m.addColumn("idProveedor");
         m.addColumn("Presio");
         for (ProductoVO pvo : pdao.consultarTabla()) {
-            m.addRow(new Object[]{pvo.getId_producto(), pvo.getNombre_producto(), pvo.getTipo_producto(), pvo.getDescripcion_producto(),pvo.getPresio_producto()});
+            m.addRow(new Object[]{pvo.getId_producto(), pvo.getNombre_producto(), pvo.getTipo_producto(), pvo.getDescripcion_producto(),pvo.getFk_id_proveedor(),pvo.getPrecio_producto()});
         }
         vista.tblProducto.setModel(m);
         vista.tblProducto.setRowSorter(tr);
@@ -98,11 +101,13 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
             pvo.setNombre_producto(vista.jtxfNombrePt.getText());
             pvo.setTipo_producto(vista.jtxfTipoPt.getText());
             pvo.setDescripcion_producto(vista.jtxaDescripcionPt.getText());
-            pvo.setPresio_producto(Double.parseDouble(vista.txtPresio.getText()));
+            pvo.setFk_id_proveedor(Integer.parseInt(vista.cbxIdProveedores.getSelectedItem().toString()));
+            pvo.setPrecio_producto(Double.parseDouble(vista.txtPresio.getText()));
             pdao.actualizar(pvo);
             vista.jtxfNombrePt.setText("");
             vista.jtxfTipoPt.setText("");
             vista.jtxaDescripcionPt.setText("");
+            vista.cbxIdProveedores.setSelectedIndex(0);
             vista.txtPresio.setText("");
             JOptionPane.showMessageDialog(null, "Registro Modificado");
         } catch (Exception e) {
@@ -117,8 +122,24 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         vista.jtxfNombrePt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 1)));
         vista.jtxfTipoPt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 2)));
         vista.jtxaDescripcionPt.setText(String.valueOf(vista.tblProducto.getValueAt(row, 3)));
-        vista.txtPresio.setText(String.valueOf(vista.tblProducto.getValueAt(row, 4)));
+        pvo.setFk_id_proveedor((int) vista.tblProducto.getValueAt(row, 4));
+        vista.txtPresio.setText(String.valueOf(vista.tblProducto.getValueAt(row, 5)));
 
+    }
+    //metodo para cargar los Proveedores en el combobox
+    public void cargarProveedores(int buscar) {
+        ProveedorDAO pdao = new ProveedorDAO();
+        int index = 1;
+        vista.cbxIdProveedores.removeAllItems();
+        vista.cbxIdProveedores.addItem("Seleccione Producto");
+        for (ProveedorVO pvo : pdao.consultarTabla()) {
+            vista.cbxIdProveedores.addItem(String.valueOf(pvo.getId_proveedor()));
+            //vista.cbxLibroAutor.addItem(lvo.getNombre_libro());
+            if (pvo.getId_proveedor() == buscar) {
+                vista.cbxIdProveedores.setSelectedIndex(index);
+            }
+            index++;
+        }
     }
     //los botones a ultilizar y que metodos utilizaran
     @Override

@@ -41,11 +41,13 @@ public class ControladorIngresarProducto implements ActionListener{
             pvo.setNombre_producto(vista.jtxfNombrePt.getText());
             pvo.setTipo_producto(vista.jtxfTipoPt.getText());
             pvo.setDescripcion_producto(vista.jtxaDescripcionPt.getText());
-            pvo.setPresio_producto(Double.parseDouble(vista.txtPresio.getText()));
+            pvo.setFk_id_proveedor(Integer.parseInt(vista.cbxIdProveedores.getSelectedItem().toString()));
+            pvo.setPrecio_producto(Double.parseDouble(vista.txtPresio.getText()));
             pdao.insertar(pvo);
             vista.jtxfNombrePt.setText("");
             vista.jtxfTipoPt.setText("");
             vista.jtxaDescripcionPt.setText("");
+            vista.cbxIdProveedores.setSelectedIndex(0);
             vista.txtPresio.setText("");
             JOptionPane.showMessageDialog(null, "Registro Ingresado");
         } catch (Exception e) {
