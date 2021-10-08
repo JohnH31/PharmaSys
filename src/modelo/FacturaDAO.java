@@ -100,7 +100,7 @@ public class FacturaDAO implements ConsultasFacturaDAO{
         this.jv = jv;
                 
         }catch (Exception e) {
-            System.out.println("Mnesaje reporte"+e.getMessage());
+            System.out.println("Mensaje reporte"+e.getMessage());
         }
     }
 }

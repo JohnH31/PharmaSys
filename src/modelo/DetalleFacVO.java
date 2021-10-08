@@ -14,17 +14,8 @@ public class DetalleFacVO {
     private int cantidad_producto;
     private double total_factura;
     private int fk_id_producto;
-    private double presio_factura;
 
     public DetalleFacVO() {
-    }
-
-    public double getPresio_factura() {
-        return presio_factura;
-    }
-
-    public void setPresio_factura(double presio_factura) {
-        this.presio_factura = presio_factura;
     }
 
     public int getId_detalle_factura() {

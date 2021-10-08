@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT id_pedido,fecha_pedido,descripcion_pedido,estado_pedido,fk_id_producto_pedido FROM tbl_pedido;]]>
+		<![CDATA[SELECT id_pedido,fecha_pedido,fk_id_cliente,fk_id_producto_pedido,descripcion_pedido,precio_pedido,cantidad_pedido,total_pedido,fk_id_estadop FROM tbl_pedido;]]>
 	</queryString>
 	<field name="id_pedido" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -12,13 +12,25 @@
 	<field name="fecha_pedido" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="descripcion_pedido" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="estado_pedido" class="java.lang.Boolean">
+	<field name="fk_id_cliente" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="fk_id_producto_pedido" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion_pedido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio_pedido" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_pedido" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_pedido" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fk_id_estadop" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -45,7 +57,7 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="16" width="111" height="20" uuid="4edcd8cc-0eba-4f34-966a-86d100ef5fb7"/>
+				<reportElement x="0" y="16" width="61" height="20" uuid="87330f03-b08f-4d5a-ae8a-e141e99f62da"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -57,7 +69,7 @@
 				<text><![CDATA[id_pedido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="111" y="16" width="111" height="20" uuid="1410db53-9bb4-4b09-93fd-28dffd114160"/>
+				<reportElement x="61" y="16" width="61" height="20" uuid="ad444116-75d8-41c5-93b8-f095cb3c325b"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -69,7 +81,31 @@
 				<text><![CDATA[fecha_pedido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="16" width="111" height="20" uuid="d4480e1a-f64f-4763-8c01-cee7d79a6c71"/>
+				<reportElement x="122" y="16" width="61" height="20" uuid="b6361204-3db0-4053-9d7d-61cb4592cc75"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[fk_id_cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="16" width="61" height="20" uuid="35c84987-d13c-43b7-a1d0-c489dea0df96"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[fk_id_producto_pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="16" width="61" height="20" uuid="fba75436-ecf4-4dfd-bd1e-af2fce8af176"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -81,7 +117,7 @@
 				<text><![CDATA[descripcion_pedido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="16" width="111" height="20" uuid="51aec71a-04b6-43b1-a971-545f7df6596a"/>
+				<reportElement x="305" y="16" width="61" height="20" uuid="389dabde-c737-438f-bb70-46dd7dec9e89"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -90,10 +126,10 @@
 					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[estado_pedido]]></text>
+				<text><![CDATA[precio_pedido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="444" y="16" width="111" height="20" uuid="7a6620ed-9d6a-40da-9c6c-c5bfc251c421"/>
+				<reportElement x="366" y="16" width="61" height="20" uuid="b3623683-dbdc-4940-83f2-af71afd94a76"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -102,14 +138,38 @@
 					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[fk_id_producto_pedido]]></text>
+				<text><![CDATA[cantidad_pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="16" width="61" height="20" uuid="7edb2be3-071e-4740-8567-e21951da34f5"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[total_pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="16" width="61" height="20" uuid="24b5b269-bfbe-4291-9133-2e177de03a57"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[fk_id_estadop]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="111" height="20" uuid="32a8efc9-e87b-4286-ac43-0b424c05efb9"/>
+				<reportElement x="0" y="0" width="61" height="20" uuid="e635bd8c-b6c9-4596-812f-2e6aea239ed2"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -121,7 +181,7 @@
 				<textFieldExpression><![CDATA[$F{id_pedido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="0" width="111" height="20" uuid="c11a47ba-b0fe-48bc-ae4a-88c6978211a2"/>
+				<reportElement x="61" y="0" width="61" height="20" uuid="60e9a31a-5f6f-491a-b9bb-73664e23a0b6"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -133,7 +193,31 @@
 				<textFieldExpression><![CDATA[$F{fecha_pedido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="0" width="111" height="20" uuid="aa417df5-1395-4553-9565-5332ebece459"/>
+				<reportElement x="122" y="0" width="61" height="20" uuid="5ec56984-f572-477d-98c5-d2031db279c6"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fk_id_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="0" width="61" height="20" uuid="689e8448-0ea7-429b-b7a4-3b14f43253db"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fk_id_producto_pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="0" width="61" height="20" uuid="96175011-9874-406f-92b4-9cb7d9dad66a"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -145,7 +229,7 @@
 				<textFieldExpression><![CDATA[$F{descripcion_pedido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="333" y="0" width="111" height="20" uuid="6ee9050b-3205-46af-94a1-b5b93fe86534"/>
+				<reportElement x="305" y="0" width="61" height="20" uuid="e41ed602-841d-4de6-83c3-2917ab5eba87"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -154,10 +238,10 @@
 					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{estado_pedido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precio_pedido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="0" width="111" height="20" uuid="2a88cea3-8a11-48b7-b05a-864824c46417"/>
+				<reportElement x="366" y="0" width="61" height="20" uuid="9770b287-43d1-4609-ae40-930ca3130aac"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -166,7 +250,31 @@
 					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{fk_id_producto_pedido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cantidad_pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="0" width="61" height="20" uuid="9c4302f2-20bd-4222-aa77-509652720a3e"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="0" width="61" height="20" uuid="35f20fa4-84d8-4708-9374-fd3510952e8d"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fk_id_estadop}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

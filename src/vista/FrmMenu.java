@@ -27,11 +27,11 @@ public class FrmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jmiCrear = new javax.swing.JMenuItem();
         jmiEliminar = new javax.swing.JMenuItem();
-        jmiRoles = new javax.swing.JMenuItem();
         btncaja = new javax.swing.JMenuItem();
         btnFactura = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenu();
@@ -54,6 +54,8 @@ public class FrmMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo.png"))); // NOI18N
+
         jMenuBar2.setBackground(new java.awt.Color(255, 255, 255));
 
         jMenu4.setText("Usuarios");
@@ -69,14 +71,6 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jmiEliminar.setText("Eliminar");
         jMenu4.add(jmiEliminar);
-
-        jmiRoles.setText("Roles");
-        jmiRoles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRolesActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jmiRoles);
 
         btncaja.setText("Caja");
         btncaja.addActionListener(new java.awt.event.ActionListener() {
@@ -190,11 +184,17 @@ public class FrmMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(jLabel4)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(jLabel4)
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,10 +203,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private void jmiCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiCrearActionPerformed
-
-    private void jmiRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRolesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiRolesActionPerformed
 
     private void menuProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProveedoresActionPerformed
         // TODO add your handling code here:
@@ -276,6 +272,7 @@ public class FrmMenu extends javax.swing.JFrame {
     public javax.swing.JMenuItem btnFactura;
     public javax.swing.JMenuItem btnProductosR;
     public javax.swing.JMenuItem btncaja;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
@@ -290,7 +287,6 @@ public class FrmMenu extends javax.swing.JFrame {
     public javax.swing.JMenuItem jmiFacturaR;
     public javax.swing.JMenuItem jmiPedidosR;
     public javax.swing.JMenuItem jmiProveedoresR;
-    public javax.swing.JMenuItem jmiRoles;
     public javax.swing.JMenu menuCliente;
     public javax.swing.JMenuItem menuCompras;
     public javax.swing.JMenuItem menuPedidos;

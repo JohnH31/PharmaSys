@@ -84,7 +84,6 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             fvo.setFecha_factura(vista.txtFecha.getText());
             fvo.setFk_id_cliente(Integer.parseInt(vista.cbxCliente.getSelectedItem().toString()));
             dfvo.setCantidad_producto(Integer.parseInt(vista.txtCantidad.getText()));
-            dfvo.setPresio_factura(Double.parseDouble(vista.txtPresio.getText()));
             double total = Integer.parseInt(vista.txtCantidad.getText()) * Double.parseDouble(vista.txtPresio.getText());
             dfvo.setTotal_factura(total);
             dfvo.setFk_id_producto(Integer.parseInt(vista.cbxIdProducto.getSelectedItem().toString()));
@@ -139,7 +138,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column == 3) {
+                if (column == 4) {
                     return true;
                 } else {
                     return false;
@@ -165,7 +164,7 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column == 4) {
+                if (column == 5) {
                     return true;
                 } else {
                     return false;
@@ -176,11 +175,12 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         tr1 = new TableRowSorter(m);
         m.setColumnCount(0);
         m.addColumn("Fecha Pedido");
+        m.addColumn("id cliente");
         m.addColumn("Descripcion");
         m.addColumn("Estado Pedido");
         m.addColumn("id Producto");
         for (PedidoVO pvo : pdao.consultarJoin()) {
-            m.addRow(new Object[]{pvo.getFecha_pedido(), pvo.getDescripcion_pedido(), pvo.getFk_id_estadop(), pvo.getFk_id_producto_pedido()});
+            m.addRow(new Object[]{pvo.getFecha_pedido(),pvo.getFk_id_cliente(), pvo.getDescripcion_pedido(), pvo.getFk_id_estadop(), pvo.getFk_id_producto_pedido()});
         }
         vista.tblFactura1.setModel(m);
         vista.tblFactura1.setRowSorter(tr1);
@@ -227,9 +227,8 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
         m.addColumn("cantidad");
         m.addColumn("total");
         m.addColumn("id producto");
-        m.addColumn("Presio");
         for (DetalleFacVO dfvo : dfdao.consultarTabla()) {
-            m.addRow(new Object[]{dfvo.getId_detalle_factura(), dfvo.getCantidad_producto(), dfvo.getTotal_factura(), dfvo.getFk_id_producto(),dfvo.getPresio_factura()});
+            m.addRow(new Object[]{dfvo.getId_detalle_factura(), dfvo.getCantidad_producto(), dfvo.getTotal_factura(), dfvo.getFk_id_producto()});
         }
         vista2.tblFacturasDetalle.setModel(m);
     }
@@ -272,7 +271,6 @@ public class ControladorFactura implements ActionListener, MouseListener, KeyLis
             fvo.setFecha_factura(vista.txtFecha.getText());
             fvo.setFk_id_cliente(Integer.parseInt(vista.cbxCliente.getSelectedItem().toString()));
             dfvo.setCantidad_producto(Integer.parseInt(vista.txtCantidad.getText()));
-            dfvo.setPresio_factura(Double.parseDouble(vista.txtPresio.getText()));
             double total = Integer.parseInt(vista.txtCantidad.getText()) * Double.parseDouble(vista.txtPresio.getText());
             dfvo.setTotal_factura(total);
             //dfvo.setTotal_factura(Integer.parseInt(vista.txtTotal.getText()));

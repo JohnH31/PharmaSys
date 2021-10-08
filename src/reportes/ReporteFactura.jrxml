@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT id_factura,fecha_factura,fk_id_cliente,cantidad_producto,total_factura,fk_id_producto,presio_factura FROM tbl_factura,tbl_detalle_factura;]]>
+		<![CDATA[SELECT id_factura,fecha_factura,fk_id_cliente,cantidad_producto,total_factura,fk_id_producto FROM tbl_factura,tbl_detalle_factura;]]>
 	</queryString>
 	<field name="id_factura" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -18,13 +18,10 @@
 	<field name="cantidad_producto" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_factura" class="java.lang.Double">
+	<field name="total_factura" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="fk_id_producto" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="presio_factura" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -51,64 +48,152 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="16" width="61" height="20" uuid="71db3e33-9c73-437e-bdfb-1e78e72ae501"/>
-				<text><![CDATA[id factura]]></text>
+				<reportElement x="0" y="16" width="92" height="20" uuid="ae470293-ff20-43b2-8bc9-6ff39837d942"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[id_factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="61" y="16" width="97" height="20" uuid="79fa717a-7d48-4da6-9f78-948610322b8b"/>
-				<text><![CDATA[fecha factura]]></text>
+				<reportElement x="92" y="16" width="92" height="20" uuid="4aa30bde-4e04-4d64-b10c-14e3c50b9050"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[fecha_factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="158" y="16" width="57" height="20" uuid="cf520240-8c6d-4e73-9367-6e35c68fa284"/>
-				<text><![CDATA[id cliente]]></text>
+				<reportElement x="184" y="16" width="92" height="20" uuid="920d9a44-b159-466e-8e27-92a3bc39701a"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[fk_id_cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="215" y="16" width="101" height="20" uuid="ef904a77-f6fa-4936-9951-aafe558e758d"/>
-				<text><![CDATA[cantidad producto]]></text>
+				<reportElement x="276" y="16" width="92" height="20" uuid="787edd74-180c-448b-b9d0-65b223ca20ff"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[cantidad_producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="316" y="16" width="79" height="20" uuid="bb7b2ab4-051e-44e1-b058-f6adaf2bf9e5"/>
-				<text><![CDATA[total factura]]></text>
+				<reportElement x="368" y="16" width="92" height="20" uuid="65c249ce-f698-4b45-90e4-64e9c1d0481a"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[total_factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="395" y="16" width="79" height="20" uuid="9422a913-be78-47bc-a14c-830994837bfc"/>
-				<text><![CDATA[id producto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="474" y="16" width="79" height="20" uuid="6767aa80-a8e6-464d-b50b-a2ed9d8a6c2f"/>
-				<text><![CDATA[presio factura]]></text>
+				<reportElement x="460" y="16" width="92" height="20" uuid="5b8a8f57-1bcd-4ad0-8fc9-1592f252491d"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[fk_id_producto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="61" height="20" uuid="cfa64570-a4de-4a0a-80df-6225c8ee8a55"/>
+				<reportElement x="0" y="0" width="92" height="20" uuid="88591712-f44b-400d-a24f-1fe3c3bdd094"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id_factura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="61" y="0" width="97" height="20" uuid="71b00b7f-adff-4d50-813b-288acade9537"/>
+				<reportElement x="92" y="0" width="92" height="20" uuid="c9320c06-551d-48af-a1fa-bae6a2460c51"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fecha_factura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="158" y="0" width="57" height="20" uuid="95eeb397-783d-4bb2-aa47-ebac63b86465"/>
+				<reportElement x="184" y="0" width="92" height="20" uuid="6cf25e95-0269-4d90-9c29-ad43340aa4eb"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fk_id_cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="215" y="0" width="101" height="20" uuid="00f8adaa-4044-4437-b971-6fff5bdb885f"/>
+				<reportElement x="276" y="0" width="92" height="20" uuid="21b0a3e1-1059-4a68-94f6-08ba87bb189c"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cantidad_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="316" y="0" width="79" height="20" uuid="2b63e9be-7d03-4825-acf5-d03fe7659bae"/>
+				<reportElement x="368" y="0" width="92" height="20" uuid="15e93c92-bb1e-466c-9a5a-a0609216ad74"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{total_factura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="395" y="0" width="79" height="20" uuid="d5ca7dc1-0349-471d-b108-17e35c6eda30"/>
+				<reportElement x="460" y="0" width="92" height="20" uuid="ee1607f7-781f-47ab-9266-cdd202727407"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fk_id_producto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="474" y="0" width="79" height="20" uuid="a34ae69e-bca2-4806-8a4e-606157efaea9"/>
-				<textFieldExpression><![CDATA[$F{presio_factura}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

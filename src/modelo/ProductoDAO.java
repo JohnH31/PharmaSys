@@ -40,9 +40,9 @@ public class ProductoDAO implements ConsultaProductoDAO{
             c.conectar();
             String consulta = "UPDATE tbl_producto SET nombre_producto= '"
                     + p.getNombre_producto()+"',tipo_producto= '"+p.getTipo_producto()
-                    +"',descripcion_producto='"+p.getDescripcion_producto()+",fk_id_proveedor="+p.getFk_id_proveedor()+
+                    +"',descripcion_producto='"+p.getDescripcion_producto()+"',fk_id_proveedor="+p.getFk_id_proveedor()+
                     ",precio_producto= "+p.getPrecio_producto()
-                    +"' WHERE id_producto = "+ p.getId_producto()+ ";";
+                    +" WHERE id_producto = "+ p.getId_producto()+ ";";
             c.consultas_multiples(consulta);
         } catch (Exception e) {
             System.out.println("Mensaje Actualizar " + e.getMessage());
@@ -94,7 +94,7 @@ public class ProductoDAO implements ConsultaProductoDAO{
         ArrayList<PedidoVO> infos = new ArrayList<>();
         try {
             c.conectar();
-            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,precio_producto,fecha_pedido,descripcion_pedido,fk_id_estadop,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
+            String consulta = "SELECT id_producto,nombre_producto,tipo_producto,precio_producto,fecha_pedido,fk_id_cliente,descripcion_pedido,fk_id_estadop,fk_id_producto_pedido FROM tbl_producto A RIGHT JOIN tbl_pedido L ON A.id_producto = L.fk_id_producto_pedido";
             ResultSet rs = c.consulta_datos(consulta);
             while(rs.next()){
                 PedidoVO pvo = new PedidoVO();
@@ -104,9 +104,10 @@ public class ProductoDAO implements ConsultaProductoDAO{
                 dvo.setTipo_producto(rs.getString(3));
                 dvo.setPrecio_producto(rs.getDouble(4));
                 pvo.setFecha_pedido(rs.getString(5));
-                pvo.setDescripcion_pedido(rs.getString(6));
-                pvo.setFk_id_estadop(rs.getInt(7));
-                pvo.setFk_id_producto_pedido(rs.getInt(8));
+                pvo.setFk_id_cliente(rs.getInt(6));
+                pvo.setDescripcion_pedido(rs.getString(7));
+                pvo.setFk_id_estadop(rs.getInt(8));
+                pvo.setFk_id_producto_pedido(rs.getInt(9));
                 info.add(dvo);
                 infos.add(pvo);
             }

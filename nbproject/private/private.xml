@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/controlador/ControladorMenuCompras.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/FacturaDAO.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/DetalleFacDAO.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/controlador/ControladorEliminarProducto.java</file>
             <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/controlador/ControladorFactura.java</file>
-            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/ClienteVO.java</file>
-            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/controlador/ControladorMenuPedido.java</file>
-            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/farmaciapharmasys/FarmaciaPharmaSys.java</file>
-            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/ClienteDAO.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/Conector.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/CompraDAO.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/vista/FrmFactura.java</file>
             <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/controlador/ControladorCaja.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/farmaciapharmasys/FarmaciaPharmaSys.java</file>
+            <file>file:/C:/Users/John/Documents/NetBeansProjects/FarmaciaPharmaSys/src/modelo/ProductoDAO.java</file>
         </group>
     </open-files>
 </project-private>

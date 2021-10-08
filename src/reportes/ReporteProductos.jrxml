@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT id_producto,nombre_producto,tipo_producto,descripcion_producto,presio_producto FROM tbl_producto;]]>
+		<![CDATA[SELECT id_producto,nombre_producto,tipo_producto,descripcion_producto,precio_producto FROM tbl_producto;]]>
 	</queryString>
 	<field name="id_producto" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -18,7 +18,7 @@
 	<field name="descripcion_producto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="presio_producto" class="java.lang.Double">
+	<field name="precio_producto" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -45,7 +45,7 @@
 	<columnHeader>
 		<band height="49" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="29" width="111" height="20" uuid="da0238bb-ed8a-47df-a31e-a96dd6916bf2"/>
+				<reportElement x="0" y="29" width="111" height="20" uuid="c518d5b8-dcdb-4a62-92b0-4701f5d24040"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -57,7 +57,7 @@
 				<text><![CDATA[id_producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="111" y="29" width="111" height="20" uuid="870bf593-fb55-4b80-b666-b98bcb13a768"/>
+				<reportElement x="111" y="29" width="111" height="20" uuid="bd780602-2339-4fcc-9ccb-87a6c7094ddc"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -69,7 +69,7 @@
 				<text><![CDATA[nombre_producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="29" width="111" height="20" uuid="6071ba7a-fef6-4167-ae1b-3bf0f579d59a"/>
+				<reportElement x="222" y="29" width="111" height="20" uuid="3faa2c21-4a92-4bc4-bc7c-b66b57821de3"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -81,7 +81,7 @@
 				<text><![CDATA[tipo_producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="29" width="111" height="20" uuid="075776b9-66fc-4b5c-b6b2-e15c4ae3eb4f"/>
+				<reportElement x="333" y="29" width="111" height="20" uuid="3ca31fb3-617c-4bff-995a-3cad224fb7a0"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -93,7 +93,7 @@
 				<text><![CDATA[descripcion_producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="444" y="29" width="111" height="20" uuid="7b33a136-7f49-459b-9990-ea71fe91cd05"/>
+				<reportElement x="444" y="29" width="111" height="20" uuid="8b154a26-b340-4507-88c3-3c5c8c0cf722"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -102,14 +102,14 @@
 					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[presio_producto]]></text>
+				<text><![CDATA[precio_producto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="111" height="20" uuid="6675c939-efe5-412e-9b9b-aed3f9a00b30"/>
+				<reportElement x="0" y="0" width="111" height="20" uuid="13a326a0-9864-4f3b-9ef4-e7d20b49777e"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -121,7 +121,7 @@
 				<textFieldExpression><![CDATA[$F{id_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="0" width="111" height="20" uuid="55df5076-4a76-4891-b582-da7af518a678"/>
+				<reportElement x="111" y="0" width="111" height="20" uuid="dfee7ed3-c66a-4b8c-b5c9-31bd1b4058f3"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -133,7 +133,7 @@
 				<textFieldExpression><![CDATA[$F{nombre_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="0" width="111" height="20" uuid="015e5f4b-3dcb-45b9-b052-6b075d6fbf09"/>
+				<reportElement x="222" y="0" width="111" height="20" uuid="12a75928-51c4-4b79-a04f-16d7fa7806e4"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -145,7 +145,7 @@
 				<textFieldExpression><![CDATA[$F{tipo_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="333" y="0" width="111" height="20" uuid="eab17e32-149f-45aa-ac6c-53594531d7ab"/>
+				<reportElement x="333" y="0" width="111" height="20" uuid="dae5cc5c-16fb-4070-94b4-d901561ce988"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -157,7 +157,7 @@
 				<textFieldExpression><![CDATA[$F{descripcion_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="0" width="111" height="20" uuid="89a488d9-52d5-4118-86ff-5c5ab0eea554"/>
+				<reportElement x="444" y="0" width="111" height="20" uuid="8a426872-bc58-4de3-905c-75caa1a4973e"/>
 				<box>
 					<pen lineWidth="2.5"/>
 					<topPen lineWidth="2.5"/>
@@ -166,7 +166,7 @@
 					<rightPen lineWidth="2.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{presio_producto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precio_producto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

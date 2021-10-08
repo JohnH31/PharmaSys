@@ -18,14 +18,14 @@ import javax.swing.JOptionPane;
 public class Conector {
 //Declaracion de variables que se utilizaran en la conexion
     private String driver = "com.mysql.jdbc.Driver";
-    //private String servidor = "pharmasys2021.mysql.database.azure.com";
-    //private String usuario = "admin2021@pharmasys2021";
-    //private String password = "Intecap2021";
-    //private String bd = "bd_pharmasys";
-    private String servidor = "127.0.0.1";
-    private String usuario = "root";
-    private String password = "";
+    private String servidor = "pharmasys2021.mysql.database.azure.com";
+    private String usuario = "admin2021@pharmasys2021";
+    private String password = "Intecap2021";
     private String bd = "bd_app";
+//    private String servidor = "127.0.0.1";
+//    private String usuario = "root";
+//    private String password = "";
+//    private String bd = "bd_app";
     private String cadena;
 
     //Declarar el objeto que me permita realizar una conexion

@@ -56,7 +56,7 @@ public class ControladorEliminarProducto implements ActionListener, MouseListene
         m = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column==5) {
+                if (column==6) {
                     return true;
                 }else{
                     return false;
